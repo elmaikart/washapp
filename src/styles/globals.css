@@ -1,0 +1,14 @@
+/* src/styles/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tipografía base para la app */
+body {
+  @apply bg-[#FFF5D7] text-[#0A2A45] font-sans;
+}
+
+h1, h2, h3 {
+  @apply font-bold;
+}
