@@ -1,27 +1,16 @@
-import * as React from "react";
+import * as React from "react"
 
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "ghost";
-  full?: boolean;
-};
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export default function Button({
-  variant = "primary",
-  full,
-  className = "",
-  ...props
-}: Props) {
-  const base = "btn";
-  const map = {
-    primary: "btn-primary",
-    secondary: "btn-secondary",
-    ghost: "text-wash-primary px-3 py-2",
-  } as const;
-
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => {
   return (
     <button
-      className={`${base} ${map[variant]} ${full ? "w-full" : ""} ${className}`}
+      ref={ref}
+      className={`inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${className || ""}`}
       {...props}
     />
-  );
-}
+  )
+})
+Button.displayName = "Button"
+
+export default Button

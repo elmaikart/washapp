@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/card";
-import { Input } from "@/components/input";
-import { Button } from "@/components/button";
+import  Input from "@/components/input";
+import  Button from "@/components/button";
 import { Search, Home, ShoppingCart, ListChecks, User, Shirt, Package, Star } from "lucide-react";
 
 const services = [
