@@ -1,11 +1,11 @@
 // src/app/canasto/page.tsx
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Card, CardContent } from "@/components/card";
 import Input from "@/components/input";
 import Button from "@/components/button";
-import { Package, ShoppingCart, ListChecks, User, Home } from "lucide-react";
+import { Search, Home, ShoppingCart, ListChecks, User, Shirt, Package, Star } from "lucide-react";
 
 const prendasBlancas = [
   { title: "Blanco Eco", desc: "Prendas blancas - servicio económico", price: 10000 },
