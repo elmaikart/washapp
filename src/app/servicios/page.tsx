@@ -18,16 +18,6 @@ const services = [
 export default function ServiciosPage() {
   return (
     <div className="bg-[#FFF9E6] min-h-screen flex flex-col">
-      {/* LOGO ARRIBA */}
-      <div className="flex justify-center py-4">
-        <Image
-          src="/logo.png" // guarda tu logo como public/logo.png
-          alt="WashApp Logo"
-          width={120}
-          height={40}
-        />
-      </div>
-
       {/* CONTENIDO */}
       <div className="flex-1 p-4 pb-24">
         {/* Barra de búsqueda */}
