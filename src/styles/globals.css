@@ -1,14 +1,49 @@
-/* src/styles/globals.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Tipografía base para la app */
-body {
-  @apply bg-[#FFF5D7] text-[#0A2A45] font-sans;
+/* Variables por si querés usarlas en CSS plano */
+:root{
+  --wash-bg:#FFF5D7;
+  --wash-primary:#0A2A45;
 }
 
-h1, h2, h3 {
-  @apply font-bold;
+/* Fondo y tipografía base */
+html, body {
+  height: 100%;
+  background: var(--wash-bg);
+  color: #0A2A45;
+  @apply font-sans antialiased;
 }
+
+/* Título WashApp (reutilizable) */
+.brand-title{
+  @apply text-4xl font-extrabold text-wash-primary text-center;
+}
+
+/* Primitivos reutilizables */
+.card{
+  @apply bg-white rounded-2xl shadow-card border border-black/5;
+}
+.card-content{
+  @apply p-4 sm:p-5;
+}
+.btn{
+  @apply inline-flex items-center justify-center rounded-full font-semibold transition active:scale-[.98];
+}
+.btn-primary{
+  @apply bg-wash-primary text-white hover:opacity-95 px-5 py-2;
+}
+.btn-secondary{
+  @apply bg-white text-wash-primary border border-wash-primary/20 px-5 py-2;
+}
+.input{
+  @apply form-input w-full rounded-full border-black/10 bg-white
+         focus:ring-wash-primary focus:border-wash-primary;
+}
+
+/* Mini utilidades */
+.badge{
+  @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm bg-white/70 border border-black/10;
+}
+

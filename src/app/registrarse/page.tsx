@@ -1,44 +1,66 @@
 // src/app/registrarse/page.tsx
+"use client";
 
 import React from "react";
-import { Input } from "@/components/input";
-import { Button } from "@/components/button";
 
-export default function RegistrarsePage() {
+export default function Registrarse() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFF5D7]">
-      {/* Header con logo */}
-      <header className="py-6 text-center">
-        <h1 className="text-3xl font-bold text-[#0A2A45]">WashApp</h1>
-      </header>
+    <div className="min-h-screen bg-[#FFF7E0] flex flex-col items-center justify-center p-6">
+      {/* Logo */}
+      <h1 className="text-3xl font-bold text-blue-900 mb-8">WashApp</h1>
 
-      {/* Contenido principal */}
-      <main className="flex-1 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow p-6">
-          <h2 className="text-2xl font-bold text-center text-[#0A2A45] mb-6">
-            Crear cuenta
-          </h2>
+      {/* Formulario */}
+      <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-6 space-y-6">
+        <h2 className="text-xl font-semibold text-center text-gray-800">
+          Crear una cuenta
+        </h2>
 
-          <form className="space-y-4">
-            <Input type="text" placeholder="Nombre completo" required />
-            <Input type="email" placeholder="Correo electrónico" required />
-            <Input type="tel" placeholder="Teléfono" required />
-            <Input type="password" placeholder="Contraseña" required />
-            <Input type="password" placeholder="Confirmar contraseña" required />
+        <form className="space-y-4">
+          {/* Nombre */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              placeholder="Ej: Juan Pérez"
+              className="form-input w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
 
-            <Button className="w-full rounded-full bg-[#0A2A45] text-white py-2">
-              Registrarse
-            </Button>
-          </form>
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Correo electrónico
+            </label>
+            <input
+              type="email"
+              placeholder="ejemplo@email.com"
+              className="form-input w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
 
-          <p className="text-center text-sm text-gray-600 mt-6">
-            ¿Ya tienes cuenta? {" "}
-            <a href="/login" className="text-[#0A2A45] font-semibold hover:underline">
-              Iniciar sesión
-            </a>
-          </p>
-        </div>
-      </main>
+          {/* Contraseña */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              placeholder="********"
+              className="form-input w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Botón */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+          >
+            Registrarse
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
