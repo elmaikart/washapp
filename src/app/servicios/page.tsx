@@ -79,24 +79,21 @@ export default function ServiciosPage() {
       </div>
 
       {/* Footer estilo app móvil */}
-      <footer className="fixed bottom-0 left-0 w-full bg-white border-t shadow-sm flex justify-around py-2 text-sm">
-        <button className="flex flex-col items-center text-wash-primary">
-          <span>🏠</span>
-          <span>Inicio</span>
-        </button>
-        <button className="flex flex-col items-center">
-          <span>🧺</span>
-          <span>Servicios</span>
-        </button>
-        <button className="flex flex-col items-center">
-          <span>🛒</span>
-          <span>Carrito</span>
-        </button>
-        <button className="flex flex-col items-center">
-          <span>👤</span>
-          <span>Cuenta</span>
-        </button>
-      </footer>
+      <footer className="fixed bottom-0 left-0 w-full bg-white border-t shadow-md flex justify-around py-2 text-sm z-50">
+  <div className="flex flex-col items-center text-wash-primary">
+    <span className="text-xl">🏠</span>
+    <span className="text-xs">Inicio</span>
+  </div>
+  <div className="flex flex-col items-center text-wash-primary">
+    <span className="text-xl">📋</span>
+    <span className="text-xs">Actividades</span>
+  </div>
+  <div className="flex flex-col items-center text-wash-primary">
+    <span className="text-xl">👤</span>
+    <span className="text-xs">Cuenta</span>
+  </div>
+</footer>
+
     </div>
   );
 }
