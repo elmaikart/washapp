@@ -21,10 +21,10 @@ export default function ServiciosPage() {
       {/* Buscador */}
       <div className="flex justify-center mb-6">
         <div className="flex items-center w-full max-w-lg rounded-full overflow-hidden shadow bg-white">
-          <input
-            type="text"
-            placeholder="¿Qué lavamos hoy?"
-            className="flex-1 rounded-l-full px-4 py-2 focus:outline-none focus:ring-0 border border-gray-300"
+         <input
+          type="text"
+          placeholder="¿Qué lavamos hoy?"
+          className="flex-grow px-4 py-2 text-gray-700 rounded-l-full focus:outline-none focus:ring-0 focus:border-transparent"
           />
           <button className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all">
             Buscar
@@ -79,7 +79,28 @@ export default function ServiciosPage() {
       </div>
 
       {/* Footer estilo app móvil */}
-      
+      <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-2 px-6 flex justify-between items-center shadow-inner z-50">
+  <div className="flex flex-col items-center text-xs">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m4-8h5a2 2 0 012 2v6a2 2 0 01-2 2h-3.5M13 16h1" />
+    </svg>
+    <span>Inicio</span>
+  </div>
+  <div className="flex flex-col items-center text-xs">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16h8M8 12h8m-7-4h6M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+    <span>Actividades</span>
+  </div>
+  <div className="flex flex-col items-center text-xs">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A5 5 0 0112 15a5 5 0 016.879 2.804M12 12a5 5 0 100-10 5 5 0 000 10z" />
+    </svg>
+    <span>Cuenta</span>
+  </div>
+</footer>
+  
     </div>
   );
+  
 }
