@@ -24,7 +24,7 @@ export default function ServiciosPage() {
           <input
             type="text"
             placeholder="¿Qué lavamos hoy?"
-            className="flex-grow px-4 py-2 text-sm text-gray-700 focus:outline-none"
+            className="flex-1 rounded-l-full px-4 py-2 focus:outline-none focus:ring-0 border border-gray-300"
           />
           <button className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all">
             Buscar
@@ -79,21 +79,7 @@ export default function ServiciosPage() {
       </div>
 
       {/* Footer estilo app móvil */}
-      <footer className="fixed bottom-0 left-0 w-full bg-white border-t shadow-md flex justify-around py-2 text-sm z-50">
-  <div className="flex flex-col items-center text-wash-primary">
-    <span className="text-xl">🏠</span>
-    <span className="text-xs">Inicio</span>
-  </div>
-  <div className="flex flex-col items-center text-wash-primary">
-    <span className="text-xl">📋</span>
-    <span className="text-xs">Actividades</span>
-  </div>
-  <div className="flex flex-col items-center text-wash-primary">
-    <span className="text-xl">👤</span>
-    <span className="text-xs">Cuenta</span>
-  </div>
-</footer>
-
+      
     </div>
   );
 }
