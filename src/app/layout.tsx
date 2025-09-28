@@ -1,9 +1,13 @@
 // src/app/layout.tsx
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import type { Metadata } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "WashApp",
@@ -13,10 +17,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className={`bg-wash-bg text-black font-sans ${inter.className}`}>
+      <body className={`bg-wash-bg text-black ${quicksand.className}`}>
         {children}
       </body>
     </html>
   );
 }
-
