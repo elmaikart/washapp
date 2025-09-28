@@ -17,17 +17,17 @@ const services = [
 
 export default function ServiciosPage() {
   return (
-    <div className="px-4 py-6">
+    <div className="px-4 py-6 pb-28">
       {/* Buscador */}
       <div className="flex justify-center mb-6">
-        <div className="flex w-full max-w-lg bg-white shadow rounded-full overflow-hidden">
+        <div className="flex items-center w-full max-w-lg rounded-full overflow-hidden shadow bg-white">
           <input
             type="text"
             placeholder="¿Qué lavamos hoy?"
-            className="flex-grow px-4 py-2 text-gray-700 focus:outline-none"
+            className="flex-grow px-4 py-2 text-sm text-gray-700 focus:outline-none"
           />
-          <button className="bg-wash-primary text-white px-4 flex items-center justify-center">
-            <Search size={18} />
+          <button className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all">
+            Buscar
           </button>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default function ServiciosPage() {
         Pedidos Programados
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="pedido-card">
+        <div className="pedido-card border-r border-gray-200">
           <h4>Retiros</h4>
           <p>Orden Nº R107</p>
           <p>Martes, 19 Octubre</p>
@@ -64,6 +64,39 @@ export default function ServiciosPage() {
           <p>Jujuy 572, dpto 5B</p>
         </div>
       </div>
+
+      {/* Promo Bolso */}
+      <div className="mt-6 p-4 border rounded-xl bg-white shadow-sm flex items-center gap-4">
+        <img src="/icons/bolso.svg" alt="Bolso Promo" className="w-10 h-10" />
+        <div>
+          <p className="font-semibold">Promo Bolso oficial</p>
+          <p className="text-sm text-gray-600">
+            Para Canasto de Ropa, <strong>2x1</strong>
+            <br />
+            Con tu compra 20% descuento en próximo pedido
+          </p>
+        </div>
+      </div>
+
+      {/* Footer estilo app móvil */}
+      <footer className="fixed bottom-0 left-0 w-full bg-white border-t shadow-sm flex justify-around py-2 text-sm">
+        <button className="flex flex-col items-center text-wash-primary">
+          <span>🏠</span>
+          <span>Inicio</span>
+        </button>
+        <button className="flex flex-col items-center">
+          <span>🧺</span>
+          <span>Servicios</span>
+        </button>
+        <button className="flex flex-col items-center">
+          <span>🛒</span>
+          <span>Carrito</span>
+        </button>
+        <button className="flex flex-col items-center">
+          <span>👤</span>
+          <span>Cuenta</span>
+        </button>
+      </footer>
     </div>
   );
 }
