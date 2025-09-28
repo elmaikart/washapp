@@ -24,7 +24,7 @@ export default function ServiciosPage() {
          <input
           type="text"
           placeholder="¿Qué lavamos hoy?"
-          className="flex-grow px-4 py-2 text-gray-700 rounded-l-full border-none outline-none ring-0 focus:outline-none focus:ring-0 focus:border-none focus-visible:ring-0"
+          className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all rounded-full text-sm sm:text-base leading-none"
           />
           <button className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all">
             Buscar
