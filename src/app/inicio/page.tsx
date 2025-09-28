@@ -2,8 +2,18 @@
 
 import React from "react";
 import Input from "@/components/input";
-import { Package } from "lucide-react";
+import {
+  ShoppingBasket,
+  Layers,
+  Shirt,
+  FoldVertical,
+  Package,
+  LayoutGrid,
+  PanelBottomClose,
+  Fan,
+} from "lucide-react";
 
+// Lista de servicios
 const services = [
   "Canasto de Ropa",
   "Acolchados",
@@ -16,11 +26,24 @@ const services = [
   "Alfombras",
 ];
 
+// Mapeo de iconos según el servicio
+const iconsMap: Record<string, JSX.Element> = {
+  "Canasto de Ropa": <ShoppingBasket className="w-16 h-16 text-wash-primary" />,
+  Acolchados: <Layers className="w-16 h-16 text-wash-primary" />,
+  Camperas: <Shirt className="w-16 h-16 text-wash-primary" />,
+  Sábanas: <FoldVertical className="w-16 h-16 text-wash-primary" />,
+  Fundas: <Package className="w-16 h-16 text-wash-primary" />,
+  Manteles: <LayoutGrid className="w-16 h-16 text-wash-primary" />,
+  Cortinas: <PanelBottomClose className="w-16 h-16 text-wash-primary" />,
+  Secado: <Fan className="w-16 h-16 text-wash-primary" />,
+  Alfombras: <Layers className="w-16 h-16 text-wash-primary" />, // temporal
+};
+
 export default function InicioPage() {
   return (
-    <main className="min-h-screen flex flex-col items-center px-4 pb-20"> 
+    <main className="min-h-screen flex flex-col items-center px-4 pb-20">
       {/* pb-20 para dejar espacio al footer */}
-      
+
       <div className="w-full max-w-4xl">
         <h1 className="text-3xl font-bold text-wash-primary mt-6 mb-4 text-left">WashApp</h1>
       </div>
@@ -44,8 +67,12 @@ export default function InicioPage() {
               key={index}
               className="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow hover:shadow-md transition"
             >
-              <Package className="w-6 h-6 mb-2 text-wash-primary" />
-              <span className="text-sm font-semibold text-center">{service}</span>
+              <div className="flex flex-col justify-between items-center h-full pt-4 pb-2">
+                {iconsMap[service] ?? (
+                  <Package className="w-16 h-16 text-wash-primary mb-4" />
+                )}
+                <span className="text-sm font-semibold text-center mt-3">{service}</span>
+              </div>
             </div>
           ))}
         </div>
@@ -56,22 +83,21 @@ export default function InicioPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-white rounded-xl shadow p-4">
-            <h3 className="text-md font-bold text-wash-primary mb-1">Retiro programado</h3>
-            <p className="text-sm text-gray-700">Martes 10:00hs</p>
-            <p className="text-sm text-gray-700">Canasto y Acolchados</p>
-            <p className="text-sm text-gray-500 mt-1">Estado: Confirmado</p>
+            <h3 className="text-md font-bold text-wash-primary mb-1">Retiro Programado</h3>
+            <p className="text-sm text-gray-700">Hoy,Miér.25 Sep. Entre:10:00hs y 13:00hs</p>
+            <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort </p>
+            <p className="text-sm text-gray-500 mt-1">Estado: Retirado</p>
           </div>
           <div className="bg-white rounded-xl shadow p-4">
-            <h3 className="text-md font-bold text-wash-primary mb-1">Devolución programada</h3>
-            <p className="text-sm text-gray-700">Miércoles 18:00hs</p>
-            <p className="text-sm text-gray-700">Sábanas y Fundas</p>
-            <p className="text-sm text-gray-500 mt-1">Estado: En ruta</p>
+            <h3 className="text-md font-bold text-wash-primary mb-1">Devolución Programada</h3>
+            <p className="text-sm text-gray-700">Mañana, Jue.26 Sep. Entre: 13:00hs y 18:00hs</p>
+            <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
+            <p className="text-sm text-gray-500 mt-1">Estado: En camino</p>
           </div>
         </div>
       </section>
 
       {/* Este espacio se deja para no tapar contenido por el footer fijo */}
-
       <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-3 flex justify-around items-center shadow-inner z-50">
         <button className="flex flex-col items-center text-xs">
           <span>🏠</span>
