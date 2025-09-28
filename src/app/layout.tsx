@@ -1,27 +1,22 @@
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+// src/app/layout.tsx
 import "@/styles/globals.css";
-import Header from "@/components/header";
+import { Inter } from "next/font/google";
+import type { Metadata } from "next";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WashApp",
-  description: "Tu app de lavandería en un solo clic.",
+  description: "Tu lavadero de confianza",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={montserrat.variable}>
-      <body className="min-h-screen bg-wash-bg text-gray-900">
-        <Header />
-        <main className="max-w-4xl mx-auto px-4 pb-16">{children}</main>
+    <html lang="es">
+      <body className={`bg-wash-bg text-black font-sans ${inter.className}`}>
+        {children}
       </body>
     </html>
   );
 }
+

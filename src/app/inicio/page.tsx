@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Buscador from "@/components/buscador";
+import Input from "@/components/input";
 import { Package } from "lucide-react";
 
 const services = [
@@ -18,14 +18,23 @@ const services = [
 
 export default function InicioPage() {
   return (
-    <main className="min-h-screen flex flex-col items-center px-4 pb-10 bg-wash-bg">
+    <main className="min-h-screen flex flex-col items-center px-4 pb-10">
       {/* Logo principal */}
       <h1 className="text-3xl font-bold text-wash-primary mt-6 mb-4">WashApp</h1>
 
-      {/* Buscador encapsulado */}
-      <Buscador />
+      {/* Buscador */}
+      <div className="flex items-center w-full max-w-md bg-white rounded-full shadow px-4 py-2 gap-2 mb-6">
+        <Input
+          type="text"
+          placeholder="¿Qué lavamos hoy?"
+          className="flex-grow border-none focus:ring-0"
+        />
+        <button className="bg-wash-primary text-white font-semibold px-4 py-1 rounded-full text-sm hover:bg-blue-900 transition">
+          Buscar
+        </button>
+      </div>
 
-      {/* Servicios con scroll */}
+      {/* Servicios */}
       <div className="w-full max-w-4xl">
         <h2 className="text-xl font-semibold mb-4 text-center">Servicios</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto p-2">
