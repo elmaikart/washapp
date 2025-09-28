@@ -2,16 +2,10 @@
 "use client";
 
 import React, { useState } from "react";
-import Card, { CardContent } from "@/components/card";
-import Input from "@/components/input";
+import { Card, CardContent } from "@/components/card";
 import Button from "@/components/button";
-import {
-  Package,
-  ShoppingCart,
-  ListChecks,
-  User,
-  Home,
-} from "lucide-react";
+import Input from "@/components/input";
+import { Package, ShoppingCart, ListChecks, User, Home } from "lucide-react";
 
 const prendasBlancas = [
   { title: "Blanco Eco", desc: "Prendas blancas - servicio económico", price: 10000 },
@@ -48,13 +42,8 @@ export default function CanastoPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FFF5D7]">
-      {/* Header con título */}
-      <header className="py-6 text-center">
-        <h1 className="text-3xl font-bold text-[#0A2A45]">WashApp</h1>
-      </header>
-
       {/* Título de la página */}
-      <div className="text-center mb-4">
+      <div className="text-center mb-4 mt-6">
         <h2 className="text-2xl font-semibold text-[#0A2A45]">
           Pedido de Canasto de Ropa
         </h2>
@@ -62,7 +51,7 @@ export default function CanastoPage() {
 
       {/* Galería en dos columnas */}
       <main className="flex-1 px-4 py-6 overflow-y-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6">
           {/* Columna prendas blancas */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-[#0A2A45] mb-2">Prendas Blancas</h3>

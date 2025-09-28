@@ -2,48 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Variables por si querés usarlas en CSS plano */
-:root{
-  --wash-bg:#FFF5D7;
-  --wash-primary:#0A2A45;
-}
-
-/* Fondo y tipografía base */
-html, body {
+/* ==============================
+   Base Reset
+============================== */
+html,
+body {
   height: 100%;
-  background: var(--wash-bg);
-  color: #0A2A45;
-  @apply font-sans antialiased;
+  margin: 0;
+  padding: 0;
+  @apply bg-wash-bg font-sans text-gray-900;
 }
 
-/* Título WashApp (reutilizable) */
-.brand-title{
-  @apply text-4xl font-extrabold text-wash-primary text-center;
+/* ==============================
+   Header
+============================== */
+header {
+  @apply flex items-center justify-center py-4 bg-wash-bg;
 }
 
-/* Primitivos reutilizables */
-.card{
-  @apply bg-white rounded-2xl shadow-card border border-black/5;
-}
-.card-content{
-  @apply p-4 sm:p-5;
-}
-.btn{
-  @apply inline-flex items-center justify-center rounded-full font-semibold transition active:scale-[.98];
-}
-.btn-primary{
-  @apply bg-wash-primary text-white hover:opacity-95 px-5 py-2;
-}
-.btn-secondary{
-  @apply bg-white text-wash-primary border border-wash-primary/20 px-5 py-2;
-}
-.input{
-  @apply form-input w-full rounded-full border-black/10 bg-white
-         focus:ring-wash-primary focus:border-wash-primary;
+header h1 {
+  @apply text-3xl font-bold text-wash-primary;
 }
 
-/* Mini utilidades */
-.badge{
-  @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm bg-white/70 border border-black/10;
+/* ==============================
+   Input (buscador, formularios)
+============================== */
+input[type="text"],
+input[type="search"],
+input[type="number"] {
+  @apply border border-gray-300 rounded-full px-4 py-2 text-gray-700
+         focus:outline-none focus:ring-2 focus:ring-wash-primary;
 }
 
+/* ==============================
+   Botones
+============================== */
+button {
+  @apply bg-wash-primary text-white px-4 py-2 rounded-full font-semibold
+         hover:bg-blue-950 transition;
+}
+
+/* ==============================
+   Cards / Servicios
+============================== */
+.service-card {
+  @apply flex flex-col items-center justify-center gap-2
+         bg-white shadow-card rounded-xl p-4 hover:shadow-lg
+         transition cursor-pointer;
+}
+
+.service-card h3 {
+  @apply text-sm font-semibold text-wash-primary;
+}
+
+/* ==============================
+   Pedidos Programados
+============================== */
+.pedido-card {
+  @apply bg-white rounded-xl shadow-card p-4 text-sm;
+}
+
+.pedido-card h4 {
+  @apply font-semibold text-wash-primary mb-2;
+}
+
+/* ==============================
+   Footer Navegación
+============================== */
+footer nav {
+  @apply flex justify-around bg-white border-t border-gray-200 py-2;
+}
+
+footer nav a {
+  @apply flex flex-col items-center text-xs text-wash-primary font-medium;
+}
+
+footer nav a svg {
+  @apply w-5 h-5 mb-1;
+}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import "@/styles/globals.css";   // ✅ Ruta corregida
+import "@/styles/globals.css";
 import Header from "@/components/header";
 
 const montserrat = Montserrat({
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={montserrat.variable}>
-      <body className="min-h-screen bg-[#FFF9E6] text-gray-900">
+      <body className="min-h-screen bg-wash-bg text-gray-900">
         <Header />
-        {children}
+        <main className="max-w-4xl mx-auto px-4 pb-16">{children}</main>
       </body>
     </html>
   );
