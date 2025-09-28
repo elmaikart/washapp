@@ -24,14 +24,14 @@ export default function ServiciosPage() {
           <Input
             type="text"
             placeholder="¿Qué lavamos hoy?"
-            className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-400 border-none focus:outline-none focus:ring-0"
+            className="bg-transparent text-sm text-gray-700 placeholder-gray-400 border-none focus:outline-none focus:ring-0"
           />
           <button className="h-full bg-[#002b45] text-white px-4 py-1.5 text-sm rounded-full hover:bg-[#001f33] transition-colors">
             Buscar
           </button>
         </div>
       </div>
-
+      
       {/* Servicios */}
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Servicios</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
