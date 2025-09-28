@@ -19,18 +19,20 @@ export default function ServiciosPage() {
   return (
     <div className="px-4 py-6 pb-28">
       {/* Buscador */}
-      <div className="flex justify-center mb-6">
-        <div className="flex items-center w-full max-w-lg rounded-full overflow-hidden shadow bg-white">
-         <input
-          type="text"
-          placeholder="¿Qué lavamos hoy?"
-          className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all rounded-full text-sm sm:text-base leading-none"
-          />
-          <button className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all">
-            Buscar
-          </button>
-        </div>
-      </div>
+      <div className="flex items-center justify-center mt-6">
+  <div className="flex rounded-full shadow-md overflow-hidden">
+    <input
+      type="text"
+      placeholder="¿Qué lavamos hoy?"
+      className="rounded-full px-4 py-2 w-full sm:w-64 text-gray-800 focus:outline-none focus:ring-0 focus:border-none shadow-sm"
+    />
+    <button
+      className="bg-wash-primary hover:bg-[#001a2e] px-6 py-2 text-white font-semibold transition-all rounded-full text-sm sm:text-base leading-none"
+    >
+      Buscar
+    </button>
+  </div>
+</div>
 
       {/* Servicios */}
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Servicios</h2>
