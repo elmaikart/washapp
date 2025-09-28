@@ -31,7 +31,7 @@ export default function ServiciosPage() {
           </button>
         </div>
       </div>
-      
+
       {/* Servicios */}
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Servicios</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
