@@ -80,8 +80,10 @@ footer nav a {
 footer nav a svg {
   @apply w-5 h-5 mb-1;
 }
-input:focus, textarea:focus, select:focus {
+input:focus,
+input:focus-visible {
   outline: none !important;
   box-shadow: none !important;
-  border-color: transparent !important;
+  border: none !important;
 }
+
