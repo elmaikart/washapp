@@ -9,7 +9,7 @@ const services = [
   { label: "Acolchados" },
   { label: "Camperas" },
   { label: "Sábanas" },
-  { label: "Toallas" },
+  { label: "Fundas" },
   { label: "Manteles" },
   { label: "Cortinas" },
   { label: "Secado" },
