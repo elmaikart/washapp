@@ -26,78 +26,115 @@ const services = [
   "Alfombras",
 ];
 
-// Mapeo de iconos según el servicio
+// Mapeo de iconos
 const iconsMap: Record<string, JSX.Element> = {
-  "Canasto de Ropa": <ShoppingBasket className="w-16 h-16 text-wash-primary" />,
-  Acolchados: <Layers className="w-16 h-16 text-wash-primary" />,
-  Camperas: <Shirt className="w-16 h-16 text-wash-primary" />,
-  Sábanas: <FoldVertical className="w-16 h-16 text-wash-primary" />,
-  Fundas: <Package className="w-16 h-16 text-wash-primary" />,
-  Manteles: <LayoutGrid className="w-16 h-16 text-wash-primary" />,
-  Cortinas: <PanelBottomClose className="w-16 h-16 text-wash-primary" />,
-  Secado: <Fan className="w-16 h-16 text-wash-primary" />,
-  Alfombras: <Layers className="w-16 h-16 text-wash-primary" />, // temporal
+  "Canasto de Ropa": <ShoppingBasket className="w-20 h-20 text-wash-primary" />,
+  Acolchados: <Layers className="w-20 h-20 text-wash-primary" />,
+  Camperas: <Shirt className="w-20 h-20 text-wash-primary" />,
+  Sábanas: <FoldVertical className="w-20 h-20 text-wash-primary" />,
+  Fundas: <Package className="w-20 h-20 text-wash-primary" />,
+  Manteles: <LayoutGrid className="w-20 h-20 text-wash-primary" />,
+  Cortinas: <PanelBottomClose className="w-20 h-20 text-wash-primary" />,
+  Secado: <Fan className="w-20 h-20 text-wash-primary" />,
+  Alfombras: <Layers className="w-20 h-20 text-wash-primary" />,
 };
 
 export default function InicioPage() {
   return (
-    <main className="min-h-screen flex flex-col items-center px-4 pb-20">
-      {/* pb-20 para dejar espacio al footer */}
+    <main className="min-h-screen pb-32 px-4 flex flex-col items-center">
+      <div className="w-full max-w-4xl mt-6">
+        <h1 className="text-3xl font-bold text-wash-primary mb-4">WashApp</h1>
 
-      <div className="w-full max-w-4xl">
-        <h1 className="text-3xl font-bold text-wash-primary mt-6 mb-4 text-left">WashApp</h1>
-      </div>
+        {/* Buscador */}
+        <div className="flex items-center w-full bg-white rounded-full shadow px-4 py-2 gap-2 mb-6">
+          <Input
+            type="text"
+            placeholder="¿Qué lavamos hoy?"
+            className="flex-grow border-none focus:ring-0"
+          />
+          <button className="bg-wash-primary text-white font-semibold px-4 py-1 rounded-full text-sm hover:bg-blue-900 transition">
+            Buscar
+          </button>
+        </div>
 
-      <div className="flex items-center w-full max-w-md bg-white rounded-full shadow px-4 py-2 gap-2 mb-6">
-        <Input
-          type="text"
-          placeholder="¿Qué lavamos hoy?"
-          className="flex-grow border-none focus:ring-0"
-        />
-        <button className="bg-wash-primary text-white font-semibold px-4 py-1 rounded-full text-sm hover:bg-blue-900 transition">
-          Buscar
-        </button>
-      </div>
-
-      <div className="w-full max-w-4xl">
-        <h2 className="text-xl font-semibold mb-4 text-left">Servicios</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto p-2">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow hover:shadow-md transition"
-            >
-              <div className="flex flex-col justify-between items-center h-full pt-4 pb-2">
+        {/* Servicios */}
+        <section className="mb-10">
+          <h2 className="text-xl font-semibold mb-4">Servicios</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto p-2">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center justify-between p-4 bg-white rounded-lg shadow hover:shadow-md transition"
+              >
                 {iconsMap[service] ?? (
-                  <Package className="w-16 h-16 text-wash-primary mb-4" />
+                  <Package className="w-20 h-20 text-wash-primary mb-4" />
                 )}
-                <span className="text-sm font-semibold text-center mt-3">{service}</span>
+                <span className="text-sm font-semibold text-center mt-4">
+                  {service}
+                </span>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Actividades Programadas */}
+        <section className="mb-10">
+          <h2 className="text-lg font-semibold mb-4">Actividades Programadas</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center text-center">
+              <span className="text-5xl text-wash-primary mb-2">⬆️</span>
+              <h3 className="text-md font-bold text-wash-primary mb-1">Retiro Programado</h3>
+              <p className="text-sm text-gray-700">Hoy, Miér. 25 Sep. Entre: 10:00hs y 13:00hs</p>
+              <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
+              <p className="text-sm text-gray-500 mt-1">Estado: Retirado</p>
             </div>
-          ))}
-        </div>
+
+            <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center text-center">
+              <span className="text-5xl text-wash-primary mb-2">⬇️</span>
+              <h3 className="text-md font-bold text-wash-primary mb-1">Devolución Programada</h3>
+              <p className="text-sm text-gray-700">Mañana, Jue. 26 Sep. Entre: 13:00hs y 18:00hs</p>
+              <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
+              <p className="text-sm text-gray-500 mt-1">Estado: En camino</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Tienda */}
+        <section className="mb-10">
+          <h2 className="text-lg font-semibold mb-4">Tienda</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl shadow p-4 flex flex-col justify-between">
+              <div className="flex flex-col items-center text-center">
+                <Package className="w-16 h-16 text-wash-primary mb-2" />
+                <h3 className="text-md font-bold text-wash-primary mb-1">Promo 2x1</h3>
+                <p className="text-sm text-gray-700 mb-2">
+                  Comprá 2 <strong>Bolsos Oficiales</strong> al precio de 1.<br />
+                  Tamaño y volumen adecuado para nuestras máquinas. Ideal para tus pedidos programados.
+                </p>
+              </div>
+              <button className="mt-4 bg-wash-primary text-white font-semibold px-4 py-2 rounded-full text-sm hover:bg-blue-900 transition self-center">
+                Comprar
+              </button>
+            </div>
+
+            <div className="bg-white rounded-xl shadow p-4 flex flex-col justify-between">
+              <div className="flex flex-col items-center text-center">
+                <span className="text-5xl mb-2">🌸</span>
+                <h3 className="text-md font-bold text-wash-primary mb-1">Aromas Post-Lavado</h3>
+                <p className="text-sm text-gray-700 mb-2">
+                  Rociadores con <strong>perfumes artesanales</strong>.<br />
+                  Conservá tus prendas con fragancias suaves y frescas. Incluye opciones hipoalergénicas 🌿
+                </p>
+              </div>
+              <button className="mt-4 bg-wash-primary text-white font-semibold px-4 py-2 rounded-full text-sm hover:bg-blue-900 transition self-center">
+                Comprar
+              </button>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <section className="w-full max-w-4xl mt-10">
-        <h2 className="text-lg font-semibold mb-4 text-left">Actividades Programadas</h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white rounded-xl shadow p-4">
-            <h3 className="text-md font-bold text-wash-primary mb-1">Retiro Programado</h3>
-            <p className="text-sm text-gray-700">Hoy,Miér.25 Sep. Entre:10:00hs y 13:00hs</p>
-            <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort </p>
-            <p className="text-sm text-gray-500 mt-1">Estado: Retirado</p>
-          </div>
-          <div className="bg-white rounded-xl shadow p-4">
-            <h3 className="text-md font-bold text-wash-primary mb-1">Devolución Programada</h3>
-            <p className="text-sm text-gray-700">Mañana, Jue.26 Sep. Entre: 13:00hs y 18:00hs</p>
-            <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
-            <p className="text-sm text-gray-500 mt-1">Estado: En camino</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Este espacio se deja para no tapar contenido por el footer fijo */}
+      {/* Footer fijo */}
       <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-3 flex justify-around items-center shadow-inner z-50">
         <button className="flex flex-col items-center text-xs">
           <span>🏠</span>
