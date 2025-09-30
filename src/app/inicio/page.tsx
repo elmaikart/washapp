@@ -145,7 +145,7 @@ export default function InicioPage() {
       </div>
 
       <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-3 shadow-inner z-50">
-        <div className="mx-auto max-w-[800px] px-1 flex justify-between items-center">
+        <div className="mx-auto max-w-[800px] px-4 flex justify-between items-center">
           <button className="flex flex-col items-center text-xs">
             <span>🏠</span>
             <span>Inicio</span>
