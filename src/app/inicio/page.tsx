@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import Input from "@/components/input";
 import {
   ShoppingBasket,
@@ -42,8 +43,12 @@ const iconsMap: Record<string, JSX.Element> = {
 export default function InicioPage() {
   return (
     <main className="min-h-screen pb-32 px-4 flex flex-col items-center">
-      <div className="w-full max-w-4xl mt-6">
-        <h1 className="text-3xl font-bold text-wash-primary mb-4">WashApp</h1>
+      <div className="w-full max-w-4xl pt-20">
+        <header className="w-full fixed top-0 left-0 right-0 bg-wash-bg shadow z-50 px-4 py-3">
+         <div className="max-w-4xl mx-auto">
+          <h1 className="text-2xl sm:text-3xl font-bold text-wash-primary">WashApp</h1>
+         </div>
+        </header>
 
         {/* Buscador */}
         <div className="flex items-center w-full bg-white rounded-full shadow px-4 py-2 gap-2 mb-6">
@@ -62,9 +67,10 @@ export default function InicioPage() {
           <h2 className="text-xl font-semibold mb-4">Servicios</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto p-2">
             {services.map((service, index) => (
-              <div
+              <Link
                 key={index}
-                className="flex flex-col items-center justify-between p-4 bg-white rounded-lg shadow hover:shadow-md transition"
+                href={`/servicios/${service.toLowerCase().replace(/ /g, "-")}`}
+                className="flex flex-col items-center justify-between p-4 bg-white rounded-lg shadow hover:shadow-lg hover:scale-105 transition-transform duration-300"
               >
                 {iconsMap[service] ?? (
                   <Package className="w-20 h-20 text-wash-primary mb-4" />
@@ -72,7 +78,7 @@ export default function InicioPage() {
                 <span className="text-sm font-semibold text-center mt-4">
                   {service}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -84,7 +90,9 @@ export default function InicioPage() {
             <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center text-center">
               <span className="text-5xl text-wash-primary mb-2">⬆️</span>
               <h3 className="text-md font-bold text-wash-primary mb-1">Retiro Programado</h3>
-              <p className="text-sm text-gray-700">Hoy, Miér. 25 Sep. Entre: 10:00hs y 13:00hs</p>
+              <p className="text-sm text-gray-700">
+                Hoy, Miér. 25 Sep. Entre: 10:00hs y 13:00hs
+              </p>
               <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
               <p className="text-sm text-gray-500 mt-1">Estado: Retirado</p>
             </div>
@@ -92,7 +100,9 @@ export default function InicioPage() {
             <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center text-center">
               <span className="text-5xl text-wash-primary mb-2">⬇️</span>
               <h3 className="text-md font-bold text-wash-primary mb-1">Devolución Programada</h3>
-              <p className="text-sm text-gray-700">Mañana, Jue. 26 Sep. Entre: 13:00hs y 18:00hs</p>
+              <p className="text-sm text-gray-700">
+                Mañana, Jue. 26 Sep. Entre: 13:00hs y 18:00hs
+              </p>
               <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
               <p className="text-sm text-gray-500 mt-1">Estado: En camino</p>
             </div>
@@ -134,21 +144,23 @@ export default function InicioPage() {
         </section>
       </div>
 
-      {/* Footer fijo */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-3 flex justify-around items-center shadow-inner z-50">
-        <button className="flex flex-col items-center text-xs">
-          <span>🏠</span>
-          <span>Inicio</span>
-        </button>
-        <button className="flex flex-col items-center text-xs">
-          <span>📋</span>
-          <span>Actividades</span>
-        </button>
-        <button className="flex flex-col items-center text-xs">
-          <span>👤</span>
-          <span>Cuenta</span>
-        </button>
+      <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-3 shadow-inner z-50">
+        <div className="mx-auto max-w-[800px] px-1 flex justify-between items-center">
+          <button className="flex flex-col items-center text-xs">
+            <span>🏠</span>
+            <span>Inicio</span>
+          </button>
+          <button className="flex flex-col items-center text-xs">
+            <span>📋</span>
+            <span>Actividades</span>
+          </button>
+          <button className="flex flex-col items-center text-xs">
+           <span>👤</span>
+           <span>Cuenta</span>
+          </button>
+        </div>
       </footer>
+
     </main>
   );
 }
