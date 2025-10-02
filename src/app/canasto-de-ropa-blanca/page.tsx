@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShoppingBasket, Layers, Clock } from "lucide-react";
+import { ShoppingBasket, Layers, Clock, Calendar } from "lucide-react";
 
 // Lista de servicios con descripción y precios
 const services = [
@@ -36,9 +36,9 @@ export default function InicioPage() {
   const [express, setExpress] = React.useState(false);
   const [seguro, setSeguro] = React.useState(false);
 
-  // Estado para horarios dinámicos
-  const [retiros, setRetiros] = React.useState<string[]>([""]);
-  const [devoluciones, setDevoluciones] = React.useState<string[]>([""]);
+  // Estado para franjas horarias (máx 3)
+  const [retiros, setRetiros] = React.useState([{ fecha: "", desde: "", hasta: "" }]);
+  const [devoluciones, setDevoluciones] = React.useState([{ fecha: "", desde: "", hasta: "" }]);
 
   // Total calculado
   const subtotal = cantidades.reduce(
@@ -134,63 +134,147 @@ export default function InicioPage() {
             <div className="grid md:grid-cols-2 gap-4">
               {/* Horario de Retiro */}
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Horario de Retiro
-                </label>
-                {retiros.map((r, i) => (
+                <label className="block text-sm font-medium mb-2">Horario de Retiro</label>
+
+                {/* 📅 Fecha */}
+                <div className="flex items-center mb-2">
+                  <Calendar className="w-5 h-5 text-gray-600 mr-2" />
                   <input
-                    key={i}
-                    type="datetime-local"
-                    value={r}
+                    type="date"
+                    value={retiros[0].fecha}
                     onChange={(e) => {
-                      const nuevos = [...retiros];
-                      nuevos[i] = e.target.value;
+                      const nuevaFecha = e.target.value;
+                      const nuevos = retiros.map(f => ({ ...f, fecha: nuevaFecha }));
                       setRetiros(nuevos);
                     }}
-                    className="w-full mb-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-wash-primary"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-full"
                   />
+                </div>
+
+                {/* ⏰ Franjas horarias */}
+                {retiros.map((r, i) => (
+                  <div key={i} className="flex items-center gap-2 mb-2">
+                    <Clock className="w-4 h-4 text-gray-600" />
+                    <span className="text-sm">Entre</span>
+
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="time"
+                        value={r.desde}
+                        onChange={(e) => {
+                          const nuevos = [...retiros];
+                          nuevos[i].desde = e.target.value;
+                          setRetiros(nuevos);
+                        }}
+                        className="border border-gray-300 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-wash-primary"
+                      />
+                      <span className="text-sm">Hs.</span>
+                    </div>
+
+                    <span className="text-sm">y</span>
+
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="time"
+                        value={r.hasta}
+                        onChange={(e) => {
+                          const nuevos = [...retiros];
+                          nuevos[i].hasta = e.target.value;
+                          setRetiros(nuevos);
+                        }}
+                        className="border border-gray-300 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-wash-primary"
+                      />
+                      <span className="text-sm">Hs.</span>
+                    </div>
+                  </div>
                 ))}
-                <button
-                  type="button"
-                  onClick={() => setRetiros([...retiros, ""])}
-                  className="flex items-center text-sm text-wash-primary hover:underline"
-                >
-                  <Clock className="w-4 h-4 mr-1" /> Agregar horario
-                </button>
+
+                {retiros.length < 3 && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setRetiros([...retiros, { fecha: retiros[0].fecha, desde: "", hasta: "" }])
+                    }
+                    className="flex items-center text-sm text-wash-primary hover:underline"
+                  >
+                    <span className="mr-1">+</span> Agregar franja horaria
+                  </button>
+                )}
               </div>
 
               {/* Horario de Devolución */}
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Horario de Devolución
-                </label>
-                {devoluciones.map((d, i) => (
+                <label className="block text-sm font-medium mb-2">Horario de Devolución</label>
+
+                {/* 📅 Fecha */}
+                <div className="flex items-center mb-2">
+                  <Calendar className="w-5 h-5 text-gray-600 mr-2" />
                   <input
-                    key={i}
-                    type="datetime-local"
-                    value={d}
+                    type="date"
+                    value={devoluciones[0].fecha}
                     onChange={(e) => {
-                      const nuevos = [...devoluciones];
-                      nuevos[i] = e.target.value;
+                      const nuevaFecha = e.target.value;
+                      const nuevos = devoluciones.map(f => ({ ...f, fecha: nuevaFecha }));
                       setDevoluciones(nuevos);
                     }}
-                    className="w-full mb-2 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-wash-primary"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-full"
                   />
+                </div>
+
+                {/* ⏰ Franjas horarias */}
+                {devoluciones.map((d, i) => (
+                  <div key={i} className="flex items-center gap-2 mb-2">
+                    <Clock className="w-4 h-4 text-gray-600" />
+                    <span className="text-sm">Entre</span>
+
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="time"
+                        value={d.desde}
+                        onChange={(e) => {
+                          const nuevos = [...devoluciones];
+                          nuevos[i].desde = e.target.value;
+                          setDevoluciones(nuevos);
+                        }}
+                        className="border border-gray-300 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-wash-primary"
+                      />
+                      <span className="text-sm">Hs.</span>
+                    </div>
+
+                    <span className="text-sm">y</span>
+
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="time"
+                        value={d.hasta}
+                        onChange={(e) => {
+                          const nuevos = [...devoluciones];
+                          nuevos[i].hasta = e.target.value;
+                          setDevoluciones(nuevos);
+                        }}
+                        className="border border-gray-300 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-wash-primary"
+                      />
+                      <span className="text-sm">Hs.</span>
+                    </div>
+                  </div>
                 ))}
-                <button
-                  type="button"
-                  onClick={() => setDevoluciones([...devoluciones, ""])}
-                  className="flex items-center text-sm text-wash-primary hover:underline"
-                >
-                  <Clock className="w-4 h-4 mr-1" /> Agregar horario
-                </button>
+
+                {devoluciones.length < 3 && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setDevoluciones([...devoluciones, { fecha: devoluciones[0].fecha, desde: "", hasta: "" }])
+                    }
+                    className="flex items-center text-sm text-wash-primary hover:underline"
+                  >
+                    <span className="mr-1">+</span> Agregar franja horaria
+                  </button>
+                )}
               </div>
 
               {/* Dirección de Retiro */}
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Dirección de Retiro
-                </label>
+                <label className="block text-sm font-medium mb-1">Dirección de Retiro</label>
                 <input
                   type="text"
                   placeholder="Ej: Av. Patria 1487"
@@ -200,9 +284,7 @@ export default function InicioPage() {
 
               {/* Dirección de Devolución */}
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Dirección de Devolución
-                </label>
+                <label className="block text-sm font-medium mb-1">Dirección de Devolución</label>
                 <input
                   type="text"
                   placeholder="Ej: Calle San Martín 2000"
@@ -210,6 +292,12 @@ export default function InicioPage() {
                 />
               </div>
             </div>
+
+            {/* ⚠️ Nota amable */}
+            <p className="text-xs text-gray-500">
+              Por favor, asegurá que haya una persona responsable disponible en los
+              horarios seleccionados para la entrega o retiro de tus pedidos.
+            </p>
 
             {/* ⚙️ Opciones */}
             <div className="space-y-2">

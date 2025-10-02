@@ -5,3 +5,15 @@
 body {
   @apply bg-wash-bg text-black font-sans;
 }
+
+/* Ocultar el icono de reloj interno en inputs type="time" */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none; /* Oculta el ícono */
+  -webkit-appearance: none;
+}
+
+input[type="time"] {
+  -moz-appearance: textfield; /* Ocultar ícono en Firefox */
+  appearance: none;
+  text-align: center;
+}
