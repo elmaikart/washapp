@@ -16,20 +16,22 @@ import {
 
 // Lista de servicios
 const services = [
-  "Canasto de Ropa",
+  "Canasto de Ropa Blanca",
+  "Canasto de Ropa Color",
   "Acolchados",
   "Camperas",
   "Sábanas",
   "Fundas",
   "Manteles",
   "Cortinas",
+  "toallas",
   "Secado",
-  "Alfombras",
 ];
 
 // Mapeo de iconos
 const iconsMap: Record<string, JSX.Element> = {
-  "Canasto de Ropa": <ShoppingBasket className="w-20 h-20 text-wash-primary" />,
+  "canasto de ropa blanca": <ShoppingBasket className="w-20 h-20 text-wash-primary" />,
+  "canasto de ropa color": <ShoppingBasket className="w-20 h-20 text-wash-primary" />,
   Acolchados: <Layers className="w-20 h-20 text-wash-primary" />,
   Camperas: <Shirt className="w-20 h-20 text-wash-primary" />,
   Sábanas: <FoldVertical className="w-20 h-20 text-wash-primary" />,
