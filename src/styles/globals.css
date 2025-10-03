@@ -8,7 +8,7 @@ body {
 
 /* 🔹 Ajuste de espacio por header fijo */
 .with-header {
-  padding-top: 64px; /* ajustá este valor a la altura real del header */
+  padding-top: 40px; /* ajustá este valor a la altura real del header */
 }
 
 /* 🔹 Ocultar icono nativo en inputs de tipo time (por si llegamos a usarlos) */
@@ -71,3 +71,8 @@ select::-webkit-scrollbar-thumb {
 select::-webkit-scrollbar-track {
   background: #002244; /* Azul oscuro */
 }
+/* 🔹 Espaciado fijo por el header */
+.with-header {
+  padding-top: 64px; /* 64px exactos */
+}
+
