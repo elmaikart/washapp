@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShoppingBasket, Layers, Clock, Calendar } from "lucide-react";
+import { ShoppingBasket, Layers, Calendar, ChevronDown } from "lucide-react";
 
 // Lista de servicios con descripción y precios
 const services = [
@@ -27,20 +27,16 @@ const services = [
 ];
 
 export default function InicioPage() {
-  // Estado para cantidades
   const [cantidades, setCantidades] = React.useState<number[]>(
     services.map(() => 0)
   );
-
-  // Estado para opciones extra
   const [express, setExpress] = React.useState(false);
   const [seguro, setSeguro] = React.useState(false);
 
-  // Estado para franjas horarias (máx 3)
+  // Estado para franjas horarias
   const [retiros, setRetiros] = React.useState([{ fecha: "", desde: "", hasta: "" }]);
   const [devoluciones, setDevoluciones] = React.useState([{ fecha: "", desde: "", hasta: "" }]);
 
-  // Total calculado
   const subtotal = cantidades.reduce(
     (acc, qty, idx) => acc + qty * services[idx].price,
     0
@@ -50,11 +46,10 @@ export default function InicioPage() {
   return (
     <main className="min-h-screen pb-32 px-4 flex flex-col items-center">
       <div className="w-full max-w-4xl pt-20">
+        {/* Header */}
         <header className="w-full fixed top-0 left-0 right-0 bg-wash-bg shadow z-50 px-4 py-3">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl font-bold text-wash-primary">
-              WashApp
-            </h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-wash-primary">WashApp</h1>
           </div>
         </header>
 
@@ -74,7 +69,6 @@ export default function InicioPage() {
                 <p className="text-sm text-gray-700 text-center mb-2">
                   {service.description}
                 </p>
-                {/* 💲 Precio */}
                 <p className="text-wash-primary font-bold mb-3">
                   ${service.price.toLocaleString()}
                 </p>
@@ -106,11 +100,10 @@ export default function InicioPage() {
 
         {/* Pedido de Canastos */}
         <section className="mt-10">
-          <h2 className="text-xl font-semibold mb-4">
-            Pedido de Canastos de Ropa Blanca
-          </h2>
+          <h2 className="text-xl font-semibold mb-4">Pedido de Canastos de Ropa Blanca</h2>
           <div className="bg-white p-6 rounded-xl shadow-md space-y-6">
-            {/* 🧾 Resumen */}
+            
+            {/* Resumen */}
             <div>
               <h3 className="font-semibold text-lg mb-2">Resumen:</h3>
               <ul className="text-sm text-gray-700 space-y-1">
@@ -119,9 +112,9 @@ export default function InicioPage() {
                   if (quantity > 0) {
                     return (
                       <li key={index}>
-                        {service.name}: {quantity} × $
-                        {service.price.toLocaleString()} = $
-                        {(quantity * service.price).toLocaleString()}
+                        {service.name}: {quantity} × ${service.price.toLocaleString()} = ${(
+                          quantity * service.price
+                        ).toLocaleString()}
                       </li>
                     );
                   }
@@ -130,35 +123,29 @@ export default function InicioPage() {
               </ul>
             </div>
 
-            {/* 🕒 Horarios y direcciones */}
+            {/* Horarios */}
             <div className="grid md:grid-cols-2 gap-4">
+              
               {/* Horario de Retiro */}
               <div>
                 <label className="block text-sm font-medium mb-2">Horario de Retiro</label>
-
-                {/* 📅 Fecha */}
                 <div className="flex items-center mb-2">
-                  <Calendar className="w-5 h-5 text-gray-600 mr-2" />
+                  <Calendar className="w-5 h-5 text-wash-primary mr-2" />
                   <input
                     type="date"
                     value={retiros[0].fecha}
                     onChange={(e) => {
                       const nuevaFecha = e.target.value;
-                      const nuevos = retiros.map(f => ({ ...f, fecha: nuevaFecha }));
+                      const nuevos = retiros.map((f) => ({ ...f, fecha: nuevaFecha }));
                       setRetiros(nuevos);
                     }}
                     className="border border-gray-300 rounded-md px-3 py-2 w-full"
                   />
                 </div>
-
-                {/* ⏰ Franjas horarias */}
                 {retiros.map((r, i) => (
                   <div key={i} className="flex items-center gap-2 mb-2">
-                    <Clock className="w-4 h-4 text-gray-600" />
                     <span className="text-sm">Entre</span>
-
-                    {/* Input "desde" */}
-                    <div className="relative flex items-center">
+                    <div className="relative w-full">
                       <input
                         type="time"
                         value={r.desde}
@@ -167,17 +154,12 @@ export default function InicioPage() {
                           nuevos[i].desde = e.target.value;
                           setRetiros(nuevos);
                         }}
-                        className="border border-gray-300 rounded-md px-3 py-2 pr-10 text-center"
+                        className="border border-gray-300 rounded-md px-3 py-2 w-full appearance-none pr-8"
                       />
-                      <span className="absolute right-3 text-gray-600 pointer-events-none">
-                        Hs.
-                      </span>
+                      <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-gray-500 pointer-events-none" />
                     </div>
-
                     <span className="text-sm">y</span>
-
-                    {/* Input "hasta" */}
-                    <div className="relative flex items-center">
+                    <div className="relative w-full">
                       <input
                         type="time"
                         value={r.hasta}
@@ -186,55 +168,34 @@ export default function InicioPage() {
                           nuevos[i].hasta = e.target.value;
                           setRetiros(nuevos);
                         }}
-                        className="border border-gray-300 rounded-md px-3 py-2 pr-10 text-center"
+                        className="border border-gray-300 rounded-md px-3 py-2 w-full appearance-none pr-8"
                       />
-                      <span className="absolute right-3 text-gray-600 pointer-events-none">
-                        Hs.
-                      </span>
+                      <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-gray-500 pointer-events-none" />
                     </div>
                   </div>
                 ))}
-
-                {retiros.length < 3 && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setRetiros([...retiros, { fecha: retiros[0].fecha, desde: "", hasta: "" }])
-                    }
-                    className="flex items-center text-sm text-wash-primary hover:underline"
-                  >
-                    <Clock className="w-4 h-4 mr-1" /> Agregar franja horaria
-                  </button>
-                )}
               </div>
 
               {/* Horario de Devolución */}
               <div>
                 <label className="block text-sm font-medium mb-2">Horario de Devolución</label>
-
-                {/* 📅 Fecha */}
                 <div className="flex items-center mb-2">
-                  <Calendar className="w-5 h-5 text-gray-600 mr-2" />
+                  <Calendar className="w-5 h-5 text-wash-primary mr-2" />
                   <input
                     type="date"
                     value={devoluciones[0].fecha}
                     onChange={(e) => {
                       const nuevaFecha = e.target.value;
-                      const nuevos = devoluciones.map(f => ({ ...f, fecha: nuevaFecha }));
+                      const nuevos = devoluciones.map((f) => ({ ...f, fecha: nuevaFecha }));
                       setDevoluciones(nuevos);
                     }}
                     className="border border-gray-300 rounded-md px-3 py-2 w-full"
                   />
                 </div>
-
-                {/* ⏰ Franjas horarias */}
                 {devoluciones.map((d, i) => (
                   <div key={i} className="flex items-center gap-2 mb-2">
-                    <Clock className="w-4 h-4 text-gray-600" />
                     <span className="text-sm">Entre</span>
-
-                    {/* Input "desde" */}
-                    <div className="relative flex items-center">
+                    <div className="relative w-full">
                       <input
                         type="time"
                         value={d.desde}
@@ -243,17 +204,12 @@ export default function InicioPage() {
                           nuevos[i].desde = e.target.value;
                           setDevoluciones(nuevos);
                         }}
-                        className="border border-gray-300 rounded-md px-3 py-2 pr-10 text-center"
+                        className="border border-gray-300 rounded-md px-3 py-2 w-full appearance-none pr-8"
                       />
-                      <span className="absolute right-3 text-gray-600 pointer-events-none">
-                        Hs.
-                      </span>
+                      <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-gray-500 pointer-events-none" />
                     </div>
-
                     <span className="text-sm">y</span>
-
-                    {/* Input "hasta" */}
-                    <div className="relative flex items-center">
+                    <div className="relative w-full">
                       <input
                         type="time"
                         value={d.hasta}
@@ -262,56 +218,16 @@ export default function InicioPage() {
                           nuevos[i].hasta = e.target.value;
                           setDevoluciones(nuevos);
                         }}
-                        className="border border-gray-300 rounded-md px-3 py-2 pr-10 text-center"
+                        className="border border-gray-300 rounded-md px-3 py-2 w-full appearance-none pr-8"
                       />
-                      <span className="absolute right-3 text-gray-600 pointer-events-none">
-                        Hs.
-                      </span>
+                      <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-gray-500 pointer-events-none" />
                     </div>
                   </div>
                 ))}
-
-                {devoluciones.length < 3 && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setDevoluciones([...devoluciones, { fecha: devoluciones[0].fecha, desde: "", hasta: "" }])
-                    }
-                    className="flex items-center text-sm text-wash-primary hover:underline"
-                  >
-                    <Clock className="w-4 h-4 mr-1" /> Agregar franja horaria
-                  </button>
-                )}
-              </div>
-
-              {/* Dirección de Retiro */}
-              <div>
-                <label className="block text-sm font-medium mb-1">Dirección de Retiro</label>
-                <input
-                  type="text"
-                  placeholder="Ej: Av. Patria 1487"
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-wash-primary"
-                />
-              </div>
-
-              {/* Dirección de Devolución */}
-              <div>
-                <label className="block text-sm font-medium mb-1">Dirección de Devolución</label>
-                <input
-                  type="text"
-                  placeholder="Ej: Calle San Martín 2000"
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-wash-primary"
-                />
               </div>
             </div>
 
-            {/* ⚠️ Nota amable */}
-            <p className="text-xs text-gray-500">
-              Por favor, asegurá que haya una persona responsable disponible en los
-              horarios seleccionados para la entrega o retiro de tus pedidos.
-            </p>
-
-            {/* ⚙️ Opciones */}
+            {/* Opciones */}
             <div className="space-y-2">
               <label className="flex items-center">
                 <input
@@ -333,7 +249,7 @@ export default function InicioPage() {
               </label>
             </div>
 
-            {/* 💳 Total */}
+            {/* Total */}
             <div className="flex justify-between items-center">
               <div className="text-lg font-bold text-wash-primary">
                 Total estimado: ${total.toLocaleString()}
@@ -345,24 +261,6 @@ export default function InicioPage() {
           </div>
         </section>
       </div>
-
-      {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-3 shadow-inner z-50">
-        <div className="mx-auto max-w-[800px] px-4 flex justify-between items-center">
-          <button className="flex flex-col items-center text-xs">
-            <span>🏠</span>
-            <span>Inicio</span>
-          </button>
-          <button className="flex flex-col items-center text-xs">
-            <span>📋</span>
-            <span>Actividades</span>
-          </button>
-          <button className="flex flex-col items-center text-xs">
-            <span>👤</span>
-            <span>Cuenta</span>
-          </button>
-        </div>
-      </footer>
     </main>
   );
 }

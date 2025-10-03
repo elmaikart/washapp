@@ -6,14 +6,63 @@ body {
   @apply bg-wash-bg text-black font-sans;
 }
 
-/* Ocultar el icono de reloj interno en inputs type="time" */
+/* 🔹 Ocultar icono nativo en inputs de tipo time (por si llegamos a usarlos) */
 input[type="time"]::-webkit-calendar-picker-indicator {
-  display: none; /* Oculta el ícono */
+  display: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
+input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-clear-button {
+  display: none;
+}
+
+/* 🔹 Uniformidad cross-browser en inputs time */
 input[type="time"] {
-  -moz-appearance: textfield; /* Ocultar ícono en Firefox */
-  appearance: none;
+  position: relative;
+  text-align: center; /* Para ver --:-- centrado */
+}
+
+/* ================================ */
+/*        ESTILOS PARA SELECTS      */
+/* ================================ */
+
+/* 🔹 Apariencia base del select */
+select {
+  -webkit-appearance: none; /* Chrome/Safari */
+  -moz-appearance: none;    /* Firefox */
+  appearance: none;         /* General */
+  background: transparent;  /* Fondo invisible */
+  border: none;             /* Sin borde */
+  outline: none;            /* Sin borde de foco */
+  color: white;             /* Texto blanco */
   text-align: center;
+  cursor: pointer;
+  padding: 2px;
+}
+
+/* 🔹 Opciones del menú desplegable */
+select option {
+  background-color: #003366; /* Azul corporativo */
+  color: white;
+  padding: 8px;
+}
+
+/* 🔹 Scroll en el menú (máx 4 ítems visibles) */
+select {
+  max-height: 120px; /* ~4 opciones */
+  overflow-y: auto;
+}
+
+/* 🔹 Scroll estilizado (slim + azul) */
+select::-webkit-scrollbar {
+  width: 6px;
+}
+select::-webkit-scrollbar-thumb {
+  background: #0055aa; /* Azul más claro */
+  border-radius: 10px;
+}
+select::-webkit-scrollbar-track {
+  background: #002244; /* Azul oscuro */
 }
