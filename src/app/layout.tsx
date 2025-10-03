@@ -29,7 +29,7 @@ export default function RootLayout({
         <Header />
 
         {/* Contenido principal con espacio reservado */}
-        <main className="w-full max-w-4xl mx-auto px-4 pt-24 pb-28">
+        <main className="w-full max-w-4xl mx-auto px-4 pb-28 with-header">
           {children}
         </main>
 

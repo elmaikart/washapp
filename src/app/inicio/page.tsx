@@ -47,7 +47,7 @@ export default function InicioPage() {
     <main className="min-h-screen pb-32 px-4 flex flex-col items-center with-header">
       <div className="w-full max-w-4xl mx-auto">
         {/* 🔹 Buscador */}
-        <div className="flex items-center w-full bg-white rounded-full shadow px-4 py-2 gap-2 mb-6">
+        <div className="flex items-center w-full bg-white rounded-full shadow px-4 py-2 gap-2 mb-6 mt-2">
           <Input
             type="text"
             placeholder="¿Qué lavamos hoy?"

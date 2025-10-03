@@ -8,7 +8,7 @@ body {
 
 /* 🔹 Ajuste de espacio por header fijo */
 .with-header {
-  padding-top: 64px; /* ajustá este valor a la altura real del header */
+  padding-top: 2px; /* ajustá este valor a la altura real del header */
 }
 
 /* 🔹 Ocultar icono nativo en inputs de tipo time (por si llegamos a usarlos) */
