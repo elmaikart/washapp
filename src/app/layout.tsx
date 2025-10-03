@@ -1,8 +1,10 @@
+// src/app/layout.tsx
 import "@/styles/globals.css";
 import { Quicksand } from "next/font/google";
 import type { Metadata } from "next";
 import React from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer"; // 👈 importamos el Footer
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -23,11 +25,16 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`bg-wash-bg text-black ${quicksand.className}`}>
+        {/* Header fijo */}
         <Header />
-        {/* dejando 6rem de espacio por el header fijo */}
+
+        {/* Contenido principal con espacio reservado */}
         <main className="w-full max-w-4xl mx-auto px-4 pt-24 pb-28">
           {children}
         </main>
+
+        {/* Footer fijo */}
+        <Footer />
       </body>
     </html>
   );

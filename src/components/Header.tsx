@@ -1,17 +1,12 @@
-import Image from "next/image";
+"use client";
+
+import React from "react";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 bg-[var(--washapp-cream)] shadow-md z-50">
-      <div className="max-w-4xl mx-auto flex items-center justify-center h-16">
-        <Image
-          src="/logo.png"
-          alt="WashApp"
-          width={120}
-          height={28}
-          priority
-          className="h-7 w-auto"
-        />
+    <header className="fixed top-0 left-0 right-0 bg-wash-bg shadow-md z-50">
+      <div className="mx-auto max-w-[800px] px-4 py-3 flex justify-center items-center">
+        <h1 className="text-xl font-bold text-wash-primary">WashApp</h1>
       </div>
     </header>
   );
