@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Package } from "lucide-react";
-import Input from "@/components/input"; // ✅ sin llaves porque es default export
+import Input from "@/components/Input"; // ✅ sin llaves porque es default export
 
 const services = [
   { label: "Canasto de Ropa" },

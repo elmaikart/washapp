@@ -2,9 +2,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card, CardContent } from "@/components/card";
-import Button from "@/components/button";
-import Input from "@/components/input";
+import { Card, CardContent } from "@/components/Card";
+import Button from "@/components/Button";
+import Input from "@/components/Input";
 import { Package, ShoppingCart, ListChecks, User, Home } from "lucide-react";
 
 const prendasBlancas = [

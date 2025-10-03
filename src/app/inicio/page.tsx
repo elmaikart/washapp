@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import Input from "@/components/input";
+import Input from "@/components/Input";
 import {
   ShoppingBasket,
   Layers,
@@ -44,8 +44,8 @@ const iconsMap: Record<string, JSX.Element> = {
 
 export default function InicioPage() {
   return (
-    <main className="min-h-screen pb-32 px-4 flex flex-col items-center">
-      <div className="w-full max-w-4xl pt-24 mx-auto">
+    <main className="min-h-screen pb-32 px-4 flex flex-col items-center pt-28">
+      <div className="w-full max-w-4xl mx-auto">
         {/* 🔹 Buscador */}
         <div className="flex items-center w-full bg-white rounded-full shadow px-4 py-2 gap-2 mb-6">
           <Input
