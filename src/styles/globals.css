@@ -6,6 +6,11 @@ body {
   @apply bg-wash-bg text-black font-sans;
 }
 
+/* 🔹 Ajuste de espacio por header fijo */
+.with-header {
+  padding-top: 64px; /* ajustá este valor a la altura real del header */
+}
+
 /* 🔹 Ocultar icono nativo en inputs de tipo time (por si llegamos a usarlos) */
 input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
