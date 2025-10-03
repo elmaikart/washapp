@@ -24,14 +24,18 @@ const services = [
   "Fundas",
   "Manteles",
   "Cortinas",
-  "toallas",
+  "Toallas",
   "Secado",
 ];
 
 // Mapeo de iconos
 const iconsMap: Record<string, JSX.Element> = {
-  "canasto de ropa blanca": <ShoppingBasket className="w-20 h-20 text-wash-primary" />,
-  "canasto de ropa color": <ShoppingBasket className="w-20 h-20 text-wash-primary" />,
+  "canasto de ropa blanca": (
+    <ShoppingBasket className="w-20 h-20 text-wash-primary" />
+  ),
+  "canasto de ropa color": (
+    <ShoppingBasket className="w-20 h-20 text-wash-primary" />
+  ),
   Acolchados: <Layers className="w-20 h-20 text-wash-primary" />,
   Camperas: <Shirt className="w-20 h-20 text-wash-primary" />,
   Sábanas: <FoldVertical className="w-20 h-20 text-wash-primary" />,
@@ -39,17 +43,21 @@ const iconsMap: Record<string, JSX.Element> = {
   Manteles: <LayoutGrid className="w-20 h-20 text-wash-primary" />,
   Cortinas: <PanelBottomClose className="w-20 h-20 text-wash-primary" />,
   Secado: <Fan className="w-20 h-20 text-wash-primary" />,
+  Toallas: <Package className="w-20 h-20 text-wash-primary" />,
   Alfombras: <Layers className="w-20 h-20 text-wash-primary" />,
 };
 
 export default function InicioPage() {
   return (
     <main className="min-h-screen pb-32 px-4 flex flex-col items-center">
-      <div className="w-full max-w-4xl pt-20">
+      <div className="w-full max-w-4xl pt-20 mx-auto">
+        {/* Header */}
         <header className="w-full fixed top-0 left-0 right-0 bg-wash-bg shadow z-50 px-4 py-3">
-         <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl sm:text-3xl font-bold text-wash-primary">WashApp</h1>
-         </div>
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold text-wash-primary">
+              WashApp
+            </h1>
+          </div>
         </header>
 
         {/* Buscador */}
@@ -91,21 +99,29 @@ export default function InicioPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center text-center">
               <span className="text-5xl text-wash-primary mb-2">⬆️</span>
-              <h3 className="text-md font-bold text-wash-primary mb-1">Retiro Programado</h3>
+              <h3 className="text-md font-bold text-wash-primary mb-1">
+                Retiro Programado
+              </h3>
               <p className="text-sm text-gray-700">
                 Hoy, Miér. 25 Sep. Entre: 10:00hs y 13:00hs
               </p>
-              <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
+              <p className="text-sm text-gray-700">
+                1 Canasto de Ropa Blanco Confort
+              </p>
               <p className="text-sm text-gray-500 mt-1">Estado: Retirado</p>
             </div>
 
             <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center text-center">
               <span className="text-5xl text-wash-primary mb-2">⬇️</span>
-              <h3 className="text-md font-bold text-wash-primary mb-1">Devolución Programada</h3>
+              <h3 className="text-md font-bold text-wash-primary mb-1">
+                Devolución Programada
+              </h3>
               <p className="text-sm text-gray-700">
                 Mañana, Jue. 26 Sep. Entre: 13:00hs y 18:00hs
               </p>
-              <p className="text-sm text-gray-700">1 Canasto de Ropa Blanco Confort</p>
+              <p className="text-sm text-gray-700">
+                1 Canasto de Ropa Blanco Confort
+              </p>
               <p className="text-sm text-gray-500 mt-1">Estado: En camino</p>
             </div>
           </div>
@@ -118,10 +134,14 @@ export default function InicioPage() {
             <div className="bg-white rounded-xl shadow p-4 flex flex-col justify-between">
               <div className="flex flex-col items-center text-center">
                 <Package className="w-16 h-16 text-wash-primary mb-2" />
-                <h3 className="text-md font-bold text-wash-primary mb-1">Promo 2x1</h3>
+                <h3 className="text-md font-bold text-wash-primary mb-1">
+                  Promo 2x1
+                </h3>
                 <p className="text-sm text-gray-700 mb-2">
-                  Comprá 2 <strong>Bolsos Oficiales</strong> al precio de 1.<br />
-                  Tamaño y volumen adecuado para nuestras máquinas. Ideal para tus pedidos programados.
+                  Comprá 2 <strong>Bolsos Oficiales</strong> al precio de 1.
+                  <br />
+                  Tamaño y volumen adecuado para nuestras máquinas. Ideal para
+                  tus pedidos programados.
                 </p>
               </div>
               <button className="mt-4 bg-wash-primary text-white font-semibold px-4 py-2 rounded-full text-sm hover:bg-blue-900 transition self-center">
@@ -132,10 +152,14 @@ export default function InicioPage() {
             <div className="bg-white rounded-xl shadow p-4 flex flex-col justify-between">
               <div className="flex flex-col items-center text-center">
                 <span className="text-5xl mb-2">🌸</span>
-                <h3 className="text-md font-bold text-wash-primary mb-1">Aromas Post-Lavado</h3>
+                <h3 className="text-md font-bold text-wash-primary mb-1">
+                  Aromas Post-Lavado
+                </h3>
                 <p className="text-sm text-gray-700 mb-2">
-                  Rociadores con <strong>perfumes artesanales</strong>.<br />
-                  Conservá tus prendas con fragancias suaves y frescas. Incluye opciones hipoalergénicas 🌿
+                  Rociadores con <strong>perfumes artesanales</strong>.
+                  <br />
+                  Conservá tus prendas con fragancias suaves y frescas. Incluye
+                  opciones hipoalergénicas 🌿
                 </p>
               </div>
               <button className="mt-4 bg-wash-primary text-white font-semibold px-4 py-2 rounded-full text-sm hover:bg-blue-900 transition self-center">
@@ -146,6 +170,7 @@ export default function InicioPage() {
         </section>
       </div>
 
+      {/* Footer */}
       <footer className="fixed bottom-0 left-0 right-0 bg-wash-primary text-white py-3 shadow-inner z-50">
         <div className="mx-auto max-w-[800px] px-4 flex justify-between items-center">
           <button className="flex flex-col items-center text-xs">
@@ -157,12 +182,11 @@ export default function InicioPage() {
             <span>Actividades</span>
           </button>
           <button className="flex flex-col items-center text-xs">
-           <span>👤</span>
-           <span>Cuenta</span>
+            <span>👤</span>
+            <span>Cuenta</span>
           </button>
         </div>
       </footer>
-
     </main>
   );
 }
