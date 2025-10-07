@@ -395,10 +395,19 @@ export default function CanastoRopaBlancaPage() {
   const subtotal = cantidades.reduce((acc, qty, idx) => acc + qty * services[idx].price, 0);
   const total = subtotal + (express ? 2000 : 0) + (seguro ? 3000 : 0);
 
-  const allRetirosOk = retiros.length > 0 && retiros.every((f) => f.confirmada && franjaValida1h(f));
-  const allDevolucionesOk = devoluciones.length > 0 && devoluciones.every((f) => f.confirmada && franjaValida1h(f));
+  const allRetirosOk =
+    retiros.length > 0 &&
+    retiros.every((f) => f.confirmada && franjaValida1h(f));
+  const allDevolucionesOk =
+    devoluciones.length > 0 &&
+    devoluciones.every((f) => f.confirmada && franjaValida1h(f));
   const anyCantidad = cantidades.some((c) => c > 0);
   const pedidoListo =
+    allRetirosOk &&
+    allDevolucionesOk &&
+    anyCantidad &&
+    !!direccionRetiro &&
+    !!direccionDevolucion;
 
   return (
     <div>
