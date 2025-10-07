@@ -399,7 +399,6 @@ export default function CanastoRopaBlancaPage() {
   const allDevolucionesOk = devoluciones.length > 0 && devoluciones.every((f) => f.confirmada && franjaValida1h(f));
   const anyCantidad = cantidades.some((c) => c > 0);
   const pedidoListo =
-    allRetirosOk && allDevolucionesOk && anyCantidad && !!direccionRetiro && !!direccionDevolucion;
 
   return (
     <div>
