@@ -469,9 +469,9 @@ export default function CanastoRopaBlancaPage() {
               <div className="mt-4">
                 <DireccionesInput
                   tipo="retiro"
-                  direccion={direccionRetiro}
-                  setDireccion={setDireccionRetiro}
-                  setCoords={setCoordsRetiro}
+                  label="Dirección de Retiro"
+                  value={direccionRetiro}
+                  onChange={setDireccionRetiro}}
                 />
               </div>
             </div>
@@ -505,9 +505,9 @@ export default function CanastoRopaBlancaPage() {
               <div className="mt-4">
                 <DireccionesInput
                   tipo="devolucion"
-                  direccion={direccionDevolucion}
-                  setDireccion={setDireccionDevolucion}
-                  setCoords={setCoordsDevolucion}
+                  label="Dirección de Devolución"
+                  vvalue={direccionDevolucion}
+                  onChange={setDireccionDevolucion}
                 />
               </div>
             </div>
