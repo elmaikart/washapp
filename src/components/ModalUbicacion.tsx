@@ -95,16 +95,16 @@ export default function ModalUbicacion({
 
   /* ======================= GET ADDRESS FROM COORDS ======================= */
   const getAddress = (lat: number, lng: number) => {
-    // @ts-ignore
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-      if (status === "OK" && results[0]) {
-        setAddress(results[0].formatted_address);
-      } else {
-        setAddress("Dirección no disponible");
-      }
-    });
-  };
+  const geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+    if (status === "OK" && results && results[0]) {
+      setAddress(results[0].formatted_address);
+    } else {
+      setAddress("Dirección no disponible");
+    }
+  });
+};
+
 
   /* ======================= CONFIRM SELECTION ======================= */
   const handleConfirm = () => {

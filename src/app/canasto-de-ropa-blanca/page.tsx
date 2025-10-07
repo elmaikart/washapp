@@ -395,20 +395,23 @@ export default function CanastoRopaBlancaPage() {
   const subtotal = cantidades.reduce((acc, qty, idx) => acc + qty * services[idx].price, 0);
   const total = subtotal + (express ? 2000 : 0) + (seguro ? 3000 : 0);
 
+  // ---------------- VALIDACIONES ----------------
   const allRetirosOk =
     retiros.length > 0 &&
     retiros.every((f) => f.confirmada && franjaValida1h(f));
+
   const allDevolucionesOk =
     devoluciones.length > 0 &&
     devoluciones.every((f) => f.confirmada && franjaValida1h(f));
+
   const anyCantidad = cantidades.some((c) => c > 0);
+
   const pedidoListo =
     allRetirosOk &&
     allDevolucionesOk &&
     anyCantidad &&
     !!direccionRetiro &&
     !!direccionDevolucion;
-
   return (
     <div>
       <section className="mb-10 mt-6">
@@ -479,7 +482,7 @@ export default function CanastoRopaBlancaPage() {
                   tipo="retiro"
                   label="Dirección de Retiro"
                   value={direccionRetiro}
-                  onChange={setDireccionRetiro}}
+                  onChange={setDireccionRetiro}
                 />
               </div>
             </div>
@@ -514,7 +517,7 @@ export default function CanastoRopaBlancaPage() {
                 <DireccionesInput
                   tipo="devolucion"
                   label="Dirección de Devolución"
-                  vvalue={direccionDevolucion}
+                  value={direccionDevolucion}
                   onChange={setDireccionDevolucion}
                 />
               </div>
