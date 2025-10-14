@@ -3,76 +3,70 @@
 @tailwind utilities;
 
 body {
-  @apply bg-wash-bg text-black font-sans;
+  @apply bg-wash-bg text-black font-sans antialiased;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 /* 🔹 Ajuste de espacio por header fijo */
 .with-header {
-  padding-top: 2px; /* ajustá este valor a la altura real del header */
+  padding-top: 64px; /* Altura aproximada de un header fijo */
 }
 
-/* 🔹 Ocultar icono nativo en inputs de tipo time (por si llegamos a usarlos) */
-input[type="time"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
-  appearance: none;
+/* 🔹 Inputs type="time": ajustes cross-browser */
+input[type="time"] {
+  position: relative;
+  text-align: center;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-inner-spin-button,
 input[type="time"]::-webkit-clear-button {
   display: none;
-}
-
-/* 🔹 Uniformidad cross-browser en inputs time */
-input[type="time"] {
-  position: relative;
-  text-align: center; /* Para ver --:-- centrado */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* ================================ */
 /*        ESTILOS PARA SELECTS      */
 /* ================================ */
 
-/* 🔹 Apariencia base del select */
 select {
-  -webkit-appearance: none; /* Chrome/Safari */
-  -moz-appearance: none;    /* Firefox */
-  appearance: none;         /* General */
-  background: transparent;  /* Fondo invisible */
-  border: none;             /* Sin borde */
-  outline: none;            /* Sin borde de foco */
-  color: white;             /* Texto blanco */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
   text-align: center;
   cursor: pointer;
-  padding: 2px;
+  padding: 4px 8px;
+  font: inherit;
+  border-radius: 8px;
 }
 
-/* 🔹 Opciones del menú desplegable */
 select option {
-  background-color: #003366; /* Azul corporativo */
+  background-color: #003366;
   color: white;
   padding: 8px;
 }
 
-/* 🔹 Scroll en el menú (máx 4 ítems visibles) */
 select {
-  max-height: 120px; /* ~4 opciones */
+  max-height: 120px;
   overflow-y: auto;
 }
 
-/* 🔹 Scroll estilizado (slim + azul) */
 select::-webkit-scrollbar {
   width: 6px;
 }
 select::-webkit-scrollbar-thumb {
-  background: #0055aa; /* Azul más claro */
-  border-radius: 10px;
+  background: #0055aa;
+  border-radius: 0px;
 }
 select::-webkit-scrollbar-track {
-  background: #002244; /* Azul oscuro */
+  background: #002244;
 }
-/* 🔹 Espaciado fijo por el header */
-.with-header {
-  padding-top: 64px; /* 64px exactos */
-}
-
