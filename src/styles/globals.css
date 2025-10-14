@@ -65,7 +65,7 @@ select::-webkit-scrollbar {
 }
 select::-webkit-scrollbar-thumb {
   background: #0055aa;
-  border-radius: 0px;
+  border-radius: 10px;
 }
 select::-webkit-scrollbar-track {
   background: #002244;
