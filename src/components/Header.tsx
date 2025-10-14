@@ -12,8 +12,8 @@ export default function Header() {
           <Image
             src="/logo-washapp-white.png"
             alt="WashApp Logo"
-            width={160}
-            height={160}
+            width={130}
+            height={130}
             className="object-contain ml-2" // ← esto lo mueve a la derecha
             priority
           />
