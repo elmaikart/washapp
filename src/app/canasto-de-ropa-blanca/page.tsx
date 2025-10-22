@@ -88,8 +88,8 @@ export default function CanastoDeRopaBlancaPage() {
   /* ===================== RENDER ===================== */
   return (
     <main className="min-h-screen bg-wash-bg text-gray-800">
-      <div className="max-w-5xl mx-auto px-4 py-6">
-        <h1 className="text-2xl font-semibold text-center text-wash-primary mb-6">
+      <div className="max-w-5xl mx-auto px-4 py-4">
+        <h1 className="text-2xl font-semibold text-left text-wash-primary mt-6 mb-6">
           Pedido de Canasto de Ropa Blanca
         </h1>
 
