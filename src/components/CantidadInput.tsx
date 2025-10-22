@@ -1,58 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 interface CantidadInputProps {
-  value?: number;
-  onChange?: (value: number) => void;
-  min?: number;
-  max?: number;
+  cantidad: number;
+  setCantidad: (nuevaCantidad: number) => void;
 }
 
-export default function CantidadInput({
-  value = 0,
-  onChange,
-  min = 0,
-  max = 99,
-}: CantidadInputProps) {
-  const [cantidad, setCantidad] = useState(value);
-
-  const handleChange = (newValue: number) => {
-    if (newValue < min || newValue > max) return;
-    setCantidad(newValue);
-    onChange?.(newValue);
+const CantidadInput: React.FC<CantidadInputProps> = ({ cantidad, setCantidad }) => {
+  const aumentar = () => setCantidad(cantidad + 1);
+  const disminuir = () => {
+    if (cantidad > 0) setCantidad(cantidad - 1);
   };
 
   return (
-    <div className="flex items-center justify-center gap-2">
-      {/* Botón Restar */}
+    <div className="flex items-center justify-center gap-3">
       <button
         type="button"
-        onClick={() => handleChange(cantidad - 1)}
-        className="bg-wash-primary text-white w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold hover:bg-blue-900 transition"
+        onClick={disminuir}
+        className="w-8 h-8 flex items-center justify-center rounded-full border border-wash-primary text-wash-primary hover:bg-wash-primary hover:text-white transition"
       >
-        −
+        -
       </button>
-
-      {/* Input editable */}
-      <input
-        type="number"
-        value={cantidad}
-        min={min}
-        max={max}
-        onChange={(e) => handleChange(Number(e.target.value))}
-        className="w-14 text-center border-2 border-wash-primary rounded-md py-1 text-lg font-semibold text-wash-primary focus:outline-none focus:ring-2 focus:ring-wash-primary"
-        inputMode="numeric"
-      />
-
-      {/* Botón Sumar */}
+      <span className="font-semibold text-gray-800">{cantidad}</span>
       <button
         type="button"
-        onClick={() => handleChange(cantidad + 1)}
-        className="bg-wash-primary text-white w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold hover:bg-blue-900 transition"
+        onClick={aumentar}
+        className="w-8 h-8 flex items-center justify-center rounded-full border border-wash-primary text-wash-primary hover:bg-wash-primary hover:text-white transition"
       >
         +
       </button>
     </div>
   );
-}
+};
+
+export default CantidadInput;
