@@ -11,6 +11,7 @@ interface Franja {
 }
 
 interface Props {
+  titulo?: string;
   fechaDevolucion?: string;
   setFechaDevolucion?: (fecha: string) => void;
   franjasDevolucion?: Franja[];
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const HorariosDevolucion: React.FC<Props> = ({
+  titulo, // 👈 agregado aquí
   fechaDevolucion = "",
   setFechaDevolucion = () => {},
   franjasDevolucion = [],
@@ -58,7 +60,7 @@ const HorariosDevolucion: React.FC<Props> = ({
     <div className="bg-white rounded-xl shadow p-4 border border-gray-100">
       <h3 className="font-semibold text-wash-primary text-base mb-3 flex items-center gap-2">
         <Calendar className="w-5 h-5 text-wash-primary" />
-        Devolución Programada
+        {titulo || "Devolución Programada"}
       </h3>
 
       {/* Fecha */}
@@ -120,6 +122,7 @@ const HorariosDevolucion: React.FC<Props> = ({
           </div>
         ))}
 
+        {/* Botón para agregar nueva franja */}
         <button
           onClick={agregarFranja}
           className="mt-2 flex items-center text-wash-primary hover:text-blue-700 text-sm font-medium"

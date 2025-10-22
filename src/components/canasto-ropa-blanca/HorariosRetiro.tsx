@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calendar, Clock, Plus, Trash2, Check, Pencil, MapPin } from "lucide-react";
+import { Calendar, Clock, Plus, Trash2, Check, Pencil } from "lucide-react";
 import HorarioSelect from "./HorarioSelect";
 
 interface Franja {
@@ -11,21 +11,19 @@ interface Franja {
 }
 
 interface Props {
+  titulo?: string;
   fechaRetiro?: string;
   setFechaRetiro?: (fecha: string) => void;
   franjasRetiro?: Franja[];
   setFranjasRetiro?: (franjas: Franja[]) => void;
-  direccionRetiro?: string;
-  setDireccionRetiro?: (direccion: string) => void;
 }
 
 const HorariosRetiro: React.FC<Props> = ({
+  titulo, // 👈 ESTA LÍNEA FALTABA
   fechaRetiro = "",
   setFechaRetiro = () => {},
   franjasRetiro = [],
   setFranjasRetiro = () => {},
-  direccionRetiro = "",
-  setDireccionRetiro = () => {},
 }) => {
   const [editIndex, setEditIndex] = useState<number | null>(null);
 
@@ -52,10 +50,10 @@ const HorariosRetiro: React.FC<Props> = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-4 border border-gray-100">
+    <div className="bg-white rounded-xl shadow p-4 mt-4">
       <h3 className="font-semibold text-wash-primary text-base mb-3 flex items-center gap-2">
         <Calendar className="w-5 h-5 text-wash-primary" />
-        Retiro Programado
+        {titulo || "Retiro Programado"}
       </h3>
 
       {/* Fecha */}
@@ -65,78 +63,66 @@ const HorariosRetiro: React.FC<Props> = ({
           type="date"
           value={fechaRetiro}
           onChange={(e) => setFechaRetiro(e.target.value)}
-          className="border border-gray-300 rounded-md px-3 py-1 w-full focus:ring-2 focus:ring-wash-primary outline-none"
+          className="border border-gray-300 rounded-md px-3 py-1 w-40 focus:ring-2 focus:ring-wash-primary outline-none"
         />
       </div>
 
-      {/* Franjas */}
-      <div className="space-y-2 mb-3">
-        {franjasRetiro.map((franja, index) => (
-          <div key={index} className="flex items-center gap-2 flex-wrap">
-            <Clock className="w-4 h-4 text-wash-primary" />
-            <span className="text-sm text-gray-700">Entre</span>
+      {/* Franjas Horarias */}
+      <div className="space-y-2">
+        {Array.isArray(franjasRetiro) &&
+          franjasRetiro.map((franja, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-wash-primary" />
+              <span className="text-sm text-gray-700">Entre</span>
 
-            <HorarioSelect
-              value={franja.desde}
-              onChange={(v) => actualizarFranja(index, "desde", v)}
-              disabled={franja.confirmado}
-            />
+              <HorarioSelect
+                value={franja.desde}
+                onChange={(valor) => actualizarFranja(index, "desde", valor)}
+                disabled={franja.confirmado}
+              />
 
-            <span className="text-sm text-gray-700">y</span>
+              <span className="text-sm text-gray-700">y</span>
 
-            <HorarioSelect
-              value={franja.hasta}
-              onChange={(v) => actualizarFranja(index, "hasta", v)}
-              disabled={franja.confirmado}
-            />
+              <HorarioSelect
+                value={franja.hasta}
+                onChange={(valor) => actualizarFranja(index, "hasta", valor)}
+                disabled={franja.confirmado}
+              />
 
-            <span className="text-sm text-gray-700">Hs</span>
+              <span className="text-sm text-gray-700">Hs</span>
 
-            {!franja.confirmado ? (
+              {!franja.confirmado ? (
+                <button
+                  onClick={() => confirmarFranja(index)}
+                  className="p-1 bg-green-500 text-white rounded-full hover:bg-green-600 transition"
+                >
+                  <Check className="w-4 h-4" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setEditIndex(index)}
+                  className="p-1 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
+                >
+                  <Pencil className="w-4 h-4" />
+                </button>
+              )}
+
               <button
-                onClick={() => confirmarFranja(index)}
-                className="p-1 bg-green-500 text-white rounded-full hover:bg-green-600 transition"
+                onClick={() => eliminarFranja(index)}
+                className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition"
               >
-                <Check className="w-4 h-4" />
+                <Trash2 className="w-4 h-4" />
               </button>
-            ) : (
-              <button
-                onClick={() => setEditIndex(index)}
-                className="p-1 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
-              >
-                <Pencil className="w-4 h-4" />
-              </button>
-            )}
+            </div>
+          ))}
 
-            <button
-              onClick={() => eliminarFranja(index)}
-              className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </div>
-        ))}
-
+        {/* Botón para agregar nueva franja */}
         <button
           onClick={agregarFranja}
           className="mt-2 flex items-center text-wash-primary hover:text-blue-700 text-sm font-medium"
         >
           <Plus className="w-4 h-4 mr-1" /> Agregar franja horaria
         </button>
-      </div>
-
-      {/* Dirección de Retiro */}
-      <div className="mt-4">
-        <label className="flex items-center gap-2 text-sm font-semibold text-wash-primary mb-1">
-          <MapPin className="w-4 h-4" /> Dirección de Retiro
-        </label>
-        <input
-          type="text"
-          value={direccionRetiro}
-          onChange={(e) => setDireccionRetiro(e.target.value)}
-          placeholder="Ej: Av. Patria 1487"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-wash-primary outline-none"
-        />
       </div>
     </div>
   );
