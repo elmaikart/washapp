@@ -1,69 +1,37 @@
 "use client";
 
 import React from "react";
-import { ShoppingBasket } from "lucide-react";
-
-type Servicio = {
-  name: string;
-  description: string;
-  price: number;
-};
+import { Servicio } from "@/types/servicio";
 
 type Props = {
-  servicios: Servicio[];
-  cantidades: number[];
-  setCantidades: (val: number[]) => void;
+  servicio: Servicio;
+  cantidad: number;
+  setCantidad: (val: number) => void;
 };
 
-export default function ServiciosSelector({ servicios, cantidades, setCantidades }: Props) {
-  const handleCantidadChange = (index: number, value: number) => {
-    const nuevasCantidades = [...cantidades];
-    nuevasCantidades[index] = value;
-    setCantidades(nuevasCantidades);
-  };
-
+export default function ServiciosSelector({ servicio, cantidad, setCantidad }: Props) {
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {servicios.map((servicio, index) => (
-        <div
-          key={index}
-          className="border border-gray-300 rounded-xl p-4 shadow-sm bg-white"
+    <div className="border border-gray-300 rounded-xl p-4 shadow-sm bg-white flex flex-col items-center text-center space-y-2">
+      {servicio.icon}
+      <h3 className="font-semibold">{servicio.name}</h3>
+      <p className="text-sm text-gray-600">{servicio.description}</p>
+      <p className="text-wash-primary font-bold">${servicio.price.toLocaleString()}</p>
+
+      <div className="flex items-center justify-center gap-2">
+        <button
+          onClick={() => setCantidad(Math.max(0, cantidad - 1))}
+          className="px-2 py-1 bg-gray-200 rounded"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <ShoppingBasket className="w-10 h-10 text-wash-primary" />
-              <div>
-                <p className="font-bold text-lg">{servicio.name}</p>
-                <p className="text-sm text-gray-600">{servicio.description}</p>
-                <p className="text-wash-primary font-semibold mt-1">
-                  ${servicio.price.toLocaleString()}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                className="bg-gray-200 px-3 py-1 rounded-full text-lg"
-                onClick={() =>
-                  handleCantidadChange(index, Math.max(0, cantidades[index] - 1))
-                }
-              >
-                −
-              </button>
-              <span className="w-6 text-center">{cantidades[index]}</span>
-              <button
-                type="button"
-                className="bg-gray-200 px-3 py-1 rounded-full text-lg"
-                onClick={() =>
-                  handleCantidadChange(index, cantidades[index] + 1)
-                }
-              >
-                +
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
+          −
+        </button>
+        <span className="min-w-[20px] text-center">{cantidad}</span>
+        <button
+          onClick={() => setCantidad(cantidad + 1)}
+          className="px-2 py-1 bg-wash-primary text-white rounded"
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
