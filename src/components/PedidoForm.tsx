@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Calendar } from "lucide-react";
-import CantidadInput from "./CantidadInput";
+import CantidadInput from "@/components/CantidadInputLegacy";
 import DireccionesInput from "./DireccionesInput";
 import RenderFranja from "@/components/RenderFranja";
 import { Servicio } from "@/types/servicio";

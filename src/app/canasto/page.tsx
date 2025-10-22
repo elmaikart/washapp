@@ -10,7 +10,7 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react";
-import CantidadInput from "../../components/CantidadInput";
+import CantidadInput from "@/components/CantidadInputLegacy";
 import DireccionesInput from "../../components/DireccionesInput";
 
 /* =================  DATA  ================= */
