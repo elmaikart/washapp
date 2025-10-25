@@ -9,46 +9,48 @@ interface Servicio {
 }
 
 interface Props {
-  serviciosSeleccionados?: Servicio[];
+  serviciosSeleccionados: Servicio[];
 }
 
-const ResumenServicios: React.FC<Props> = ({ serviciosSeleccionados = [] }) => {
-  if (serviciosSeleccionados.length === 0) return null;
+const ResumenServicios: React.FC<Props> = ({ serviciosSeleccionados }) => {
+  // Filtra solo los servicios con cantidad > 0
+  const serviciosConCantidad = serviciosSeleccionados.filter(
+    (s) => s.cantidad > 0
+  );
 
-  const calcularSubtotal = (servicio: Servicio) =>
-    servicio.cantidad * servicio.precio;
+  // Si no hay servicios seleccionados, no muestra nada
+  if (serviciosConCantidad.length === 0) return null;
 
-  const subtotal = (serviciosSeleccionados ?? []).reduce(
-    (acc, servicio) => acc + calcularSubtotal(servicio),
+  // Calcula subtotal
+  const subtotal = serviciosConCantidad.reduce(
+    (acc, s) => acc + s.precio * s.cantidad,
     0
   );
 
   return (
-    <div className="text-sm text-gray-700 bg-wash-bg rounded-lg p-2">
-      <h3 className="font-semibold mb-2 text-wash-primary text-base">
+    <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+      <h3 className="font-semibold text-wash-primary mb-2 text-base">
         Resumen:
       </h3>
-      <ul className="space-y-1">
-        {serviciosSeleccionados.map((servicio, index) => (
-          <li
-            key={index}
-            className="flex justify-between border-b border-gray-200 pb-1"
+      <div className="space-y-1">
+        {serviciosConCantidad.map((s, i) => (
+          <div
+            key={i}
+            className="flex justify-between text-sm border-b border-gray-200 pb-1"
           >
             <span>
-              {servicio.nombre} × {servicio.cantidad}
+              {s.nombre} × {s.cantidad}
             </span>
-            <span>
-              ${calcularSubtotal(servicio).toLocaleString("es-AR")}
-            </span>
-          </li>
+            <span>${(s.precio * s.cantidad).toLocaleString("es-AR")}</span>
+          </div>
         ))}
-      </ul>
-      <p className="font-semibold text-right mt-3">
-        Subtotal:{" "}
-        <span className="text-wash-primary">
-          ${subtotal.toLocaleString("es-AR")}
-        </span>
-      </p>
+        <div className="flex justify-end font-semibold mt-2">
+          Subtotal:{" "}
+          <span className="text-wash-primary ml-1">
+            ${subtotal.toLocaleString("es-AR")}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
