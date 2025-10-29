@@ -185,9 +185,8 @@ function TimeBlock({
   return (
     <div
       ref={ref}
-      className={`relative flex items-center rounded-md px-2 py-1 ${
-        disabled ? "bg-gray-200 text-gray-500" : "bg-wash-primary text-white"
-      }`}
+      className={`relative flex items-center rounded-md px-2 py-1 ${disabled ? "bg-gray-200 text-gray-500" : "bg-wash-primary text-white"
+        }`}
     >
       {/* Hora */}
       <button
@@ -228,9 +227,8 @@ function TimeBlock({
                   setHora(h);
                   setShowHoras(false);
                 }}
-                className={`px-2 py-1 rounded text-sm ${
-                  fueraRango ? "text-gray-400 cursor-not-allowed" : "hover:bg-wash-primary hover:text-white"
-                }`}
+                className={`px-2 py-1 rounded text-sm ${fueraRango ? "text-gray-400 cursor-not-allowed" : "hover:bg-wash-primary hover:text-white"
+                  }`}
               >
                 {h}
               </button>
@@ -279,9 +277,8 @@ function TimeBlock({
                   setMinuto(m);
                   setShowMinutos(false);
                 }}
-                className={`px-2 py-1 rounded text-sm ${
-                  fueraRango ? "text-gray-400 cursor-not-allowed" : "hover:bg-wash-primary hover:text-white"
-                }`}
+                className={`px-2 py-1 rounded text-sm ${fueraRango ? "text-gray-400 cursor-not-allowed" : "hover:bg-wash-primary hover:text-white"
+                  }`}
               >
                 {m}
               </button>
@@ -457,9 +454,8 @@ function RenderFranja({
               },
             ])
           }
-          className={`mt-2 text-sm ${
-            !lastIsConfirmed ? "text-gray-400 cursor-not-allowed" : "text-wash-primary hover:underline"
-          }`}
+          className={`mt-2 text-sm ${!lastIsConfirmed ? "text-gray-400 cursor-not-allowed" : "text-wash-primary hover:underline"
+            }`}
         >
           + Agregar franja horaria
         </button>
@@ -510,36 +506,47 @@ export default function HorariosDevolucion({
   const maxFinHora = sabado ? "13" : "20";
   const maxFinMinute = "00";
 
-  // Actualiza validación visual “todas confirmadas”
+  // 🧠 Ajuste automático de fecha de devolución si el retiro fue tarde
+  // 🧠 Ajuste automático de fecha de devolución si el retiro fue tarde
   useEffect(() => {
-    const todas = franjas.length > 0 && franjas.every((f) => f.confirmada);
-    onConfirmChange?.(todas);
-  }, [franjas, onConfirmChange]);
+    if (!minDevolucion) return;
 
-  // Normalizar minDevolucion a la primera hora realmente disponible
-  useEffect(() => {
-    const normalized = normalizeToFirstAvailable(minDevolucion || null);
-    setMinAvail(normalized);
+    const horaNum = Number(minDevolucion.hh);
+    const fechaBase = new Date(minDevolucion.date);
+    const opciones = { weekday: "long", day: "numeric", month: "long" };
 
-    if (normalized) {
-      // Ajustar fecha seleccionada si quedó antes del mínimo
-      if (!fechaDevolucion || fechaDevolucion < normalized.date) {
-        setFechaDevolucion(normalized.date);
-      }
+    // Si el retiro fue muy tarde (>= 20hs), la devolución pasa al día siguiente
+    if (horaNum >= 20) {
+      const nextDay = new Date(fechaBase);
+      nextDay.setDate(nextDay.getDate() + 1);
 
-      // Mensaje sutil
-      const fechaLegible = new Date(normalized.date).toLocaleDateString("es-AR", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-      });
+      // Ajusta la fecha de devolución
+      const yyyy = nextDay.getFullYear();
+      const mm = String(nextDay.getMonth() + 1).padStart(2, "0");
+      const dd = String(nextDay.getDate()).padStart(2, "0");
+      const nuevaFecha = `${yyyy}-${mm}-${dd}`;
+      setFechaDevolucion(nuevaFecha);
+
+      // Fecha en texto (ya del día siguiente)
+      const fechaTexto = nextDay
+        .toLocaleDateString("es-AR", opciones)
+        .replace(/^./, (c) => c.toUpperCase());
+
       setMensajeInfo(
-        `🕐 La devolución estará disponible a partir de las ${normalized.hh}:${normalized.mm} hs del ${fechaLegible}.`
+        `⏱ El pedido fue retirado al final de la jornada. La devolución estará disponible a partir de las 08:30 hs del ${fechaTexto}.`
       );
     } else {
-      setMensajeInfo(null);
+      // Si fue temprano, mantener mismo día
+      const fechaTexto = fechaBase
+        .toLocaleDateString("es-AR", opciones)
+        .replace(/^./, (c) => c.toUpperCase());
+
+      setMensajeInfo(
+        `La devolución estará disponible a partir de las 08:30 hs del ${fechaTexto}.`
+      );
     }
-  }, [minDevolucion, setFechaDevolucion, fechaDevolucion]);
+  }, [minDevolucion, setFechaDevolucion]);
+
 
   return (
     <section className="mb-6 bg-white rounded-xl p-4 shadow-sm">
