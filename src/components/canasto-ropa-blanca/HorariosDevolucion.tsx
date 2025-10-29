@@ -551,16 +551,12 @@ export default function HorariosDevolucion({
     setFechaDevolucion(nuevaFecha);
 
     // 🗓️ Texto legible: ej. "Jueves, 30 de octubre"
-    const opciones = { weekday: "long", day: "numeric", month: "long" };
-    const fechaTexto = fechaFinal
     const opciones: Intl.DateTimeFormatOptions = {
       weekday: "long",
       day: "numeric",
       month: "long",
     };
-    const fechaTexto = fechaFinal
-      .toLocaleDateString("es-AR", opciones)
-      .replace(/^./, (c) => c.toUpperCase());
+
     // ⏰ Hora formateada
     const hh = String(fechaFinal.getHours()).padStart(2, "0");
     const mmTxt = String(fechaFinal.getMinutes()).padStart(2, "0");
