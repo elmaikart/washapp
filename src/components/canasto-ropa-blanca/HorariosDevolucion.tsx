@@ -215,7 +215,7 @@ function TimeBlock({
             return (
               <button
                 key={h}
-                disabled={fueraRango}
+                disabled={!!fueraRango}
                 title={
                   fueraRango
                     ? sameDayAsMin
