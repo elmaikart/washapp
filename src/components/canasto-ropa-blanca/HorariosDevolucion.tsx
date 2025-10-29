@@ -506,57 +506,69 @@ export default function HorariosDevolucion({
   const maxFinHora = sabado ? "13" : "20";
   const maxFinMinute = "00";
 
-  // 🧠 Ajuste automático de fecha y hora de devolución inteligente (+5hs desde el retiro)
+  // 🕐 Ajuste automático de fecha y hora de devolución inteligente (+5hs desde el retiro)
   useEffect(() => {
     if (!minDevolucion) return;
 
-    const horaNum = Number(minDevolucion.hh);
-    const minNum = Number(minDevolucion.mm);
-    const fechaBase = new Date(minDevolucion.date);
-    const opciones = { weekday: "long", day: "numeric", month: "long" };
+    // 🔁 Corrige la fecha y hora si se pasa del horario de cierre (20:00 hs)
+    const ajustarAProximoDiaSiExcedeHorario = (fecha: Date): Date => {
+      const hora = fecha.getHours();
+      const minutos = fecha.getMinutes();
 
-    // Crear fecha completa del retiro
-    const fechaRetiro = new Date(
-      fechaBase.getFullYear(),
-      fechaBase.getMonth(),
-      fechaBase.getDate(),
-      horaNum,
-      minNum
-    );
+      // Si se pasa del horario de cierre (20:00 hs)
+      if (hora > 20 || (hora === 20 && minutos > 0)) {
+        const siguiente = new Date(fecha);
+        siguiente.setDate(fecha.getDate() + 1);
+        siguiente.setHours(8, 0, 0, 0); // arranca a las 08:00 hs del siguiente día
+        return siguiente;
+      }
 
-    // Agregar 5 horas al retiro
-    const fechaDevolucionEstimada = new Date(fechaRetiro.getTime() + 5 * 60 * 60 * 1000);
+      return fecha;
+    };
 
-    // Si supera las 20hs, pasar al siguiente día a las 08:30
-    let fechaFinal = new Date(fechaDevolucionEstimada);
-    if (fechaDevolucionEstimada.getHours() >= 20) {
+    // 🧮 Crea la fecha base de devolución (+5 horas desde retiro)
+    let fechaFinal = new Date(minDevolucion.date);
+    fechaFinal = ajustarAProximoDiaSiExcedeHorario(fechaFinal);
+
+    // 🚫 Evita solapamiento: si la devolución es el mismo día y anterior al retiro, pasa al siguiente día
+    const ahora = new Date();
+    const retiroFecha = new Date(minDevolucion.date);
+    const mismaFecha =
+      fechaFinal.getFullYear() === retiroFecha.getFullYear() &&
+      fechaFinal.getMonth() === retiroFecha.getMonth() &&
+      fechaFinal.getDate() === retiroFecha.getDate();
+
+    if (mismaFecha && fechaFinal <= retiroFecha) {
       fechaFinal.setDate(fechaFinal.getDate() + 1);
-      fechaFinal.setHours(8, 30, 0, 0); // 08:30 del día siguiente
+      fechaFinal.setHours(8, 0, 0, 0); // inicia el próximo día a las 08:00 hs
     }
 
-    // Formatear fecha para setFechaDevolucion (yyyy-mm-dd)
+    // 📅 Formatea fecha para setFechaDevolucion (yyyy-mm-dd)
     const yyyy = fechaFinal.getFullYear();
     const mm = String(fechaFinal.getMonth() + 1).padStart(2, "0");
     const dd = String(fechaFinal.getDate()).padStart(2, "0");
     const nuevaFecha = `${yyyy}-${mm}-${dd}`;
     setFechaDevolucion(nuevaFecha);
 
-    // Texto legible: ej. "jueves, 30 de octubre"
+    // 🗓️ Texto legible: ej. "Jueves, 30 de octubre"
+    const opciones = { weekday: "long", day: "numeric", month: "long" };
     const fechaTexto = fechaFinal
       .toLocaleDateString("es-AR", opciones)
       .replace(/^./, (c) => c.toUpperCase());
 
-    // Hora formateada
+    // ⏰ Hora formateada
     const hh = String(fechaFinal.getHours()).padStart(2, "0");
     const mmTxt = String(fechaFinal.getMinutes()).padStart(2, "0");
 
-    // Mensaje dinámico
+    // 💬 Mensaje dinámico (informativo)
     setMensajeInfo(
       `⏱ La devolución estará disponible a partir de las ${hh}:${mmTxt} hs del ${fechaTexto}.`
     );
+
+    // 🪶 Debug opcional
+    console.log("🧩 Fecha final de devolución:", fechaFinal.toISOString());
   }, [minDevolucion, setFechaDevolucion]);
-
-
+  
   return (
     <section className="mb-6 bg-white rounded-xl p-4 shadow-sm">
       <h3 className="text-lg font-semibold text-wash-primary mb-3">Devolución Programada</h3>

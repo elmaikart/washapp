@@ -46,8 +46,7 @@ const franjaCompleta = (f: Franja) =>
 
 const franjaValida1h = (f: Franja) =>
   franjaCompleta(f) &&
-  toMins(f.hastaHora, f.hastaMinuto) - toMins(f.desdeHora, f.desdeMinuto) >=
-  60;
+  toMins(f.hastaHora, f.hastaMinuto) - toMins(f.desdeHora, f.desdeMinuto) >= 60;
 
 const isSaturday = (iso: string) => new Date(iso).getDay() === 6;
 
@@ -72,9 +71,9 @@ function TimeBlock({
   disabled = false,
   minHora = "08",
   minMinuteIfMinHour,
-  maxHora = "18",
+  maxHora = "19",
   maxMinuteIfMaxHour,
-  horarioLabel = "08:00 a 20:00 hs",
+  horarioLabel = "08:00 a 20:00 hs (Lun–Vie)",
 }: {
   hora: string;
   minuto: string;
@@ -104,7 +103,7 @@ function TimeBlock({
   }, []);
 
   const horasVisibles = ALL_HOURS.filter((h) => {
-    if (tipo === "inicio" && h === "19") return false;
+    if (tipo === "inicio" && h === "20") return false;
     return h >= minHora && h <= maxHora;
   });
 
@@ -119,7 +118,9 @@ function TimeBlock({
   return (
     <div
       ref={ref}
-      className={`relative flex items-center rounded-md px-2 py-1 ${disabled ? "bg-gray-200 text-gray-500" : "bg-wash-primary text-white"
+      className={`relative flex items-center rounded-md px-2 py-1 ${disabled
+        ? "bg-gray-200 text-gray-500"
+        : "bg-wash-primary text-white"
         }`}
     >
       {/* Hora */}
@@ -155,8 +156,8 @@ function TimeBlock({
                   setShowHoras(false);
                 }}
                 className={`px-2 py-1 rounded text-sm ${fueraRango
-                    ? "text-gray-400 cursor-not-allowed"
-                    : "hover:bg-wash-primary hover:text-white"
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "hover:bg-wash-primary hover:text-white"
                   }`}
               >
                 {h}
@@ -202,8 +203,8 @@ function TimeBlock({
                   setShowMinutos(false);
                 }}
                 className={`px-2 py-1 rounded text-sm ${fueraRango
-                    ? "text-gray-400 cursor-not-allowed"
-                    : "hover:bg-wash-primary hover:text-white"
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "hover:bg-wash-primary hover:text-white"
                   }`}
               >
                 {m}
@@ -256,6 +257,7 @@ function RenderFranja({
     <>
       {franjas.map((f, i) => {
         const canConfirm = franjaValida1h(f);
+
         return (
           <div
             key={i}
@@ -264,6 +266,7 @@ function RenderFranja({
             <div className="flex items-center gap-1 flex-nowrap">
               <Clock className="w-4 h-4 text-wash-primary shrink-0" />
 
+              {/* Hora de inicio */}
               <TimeBlock
                 tipo="inicio"
                 hora={f.desdeHora}
@@ -280,14 +283,15 @@ function RenderFranja({
                 }}
                 minHora={i > 0 && minSiguiente ? minSiguiente.hora : businessMinHora}
                 minMinuteIfMinHour={i > 0 && minSiguiente ? minSiguiente.minuto : "00"}
-                maxHora={businessMaxHora}
-                maxMinuteIfMaxHour={businessMaxMinuteAtMaxHour}
+                maxHora="18"                         // 👈 ✅ Límite máximo del inicio
+                maxMinuteIfMaxHour="30"              // 👈 hasta las 18:30
                 horarioLabel={horarioLabel}
                 disabled={f.confirmada}
               />
-
+      
               <span className="text-sm text-gray-500">-</span>
 
+              {/* Hora de fin */}
               <TimeBlock
                 tipo="fin"
                 hora={f.hastaHora}
@@ -310,7 +314,7 @@ function RenderFranja({
                 minMinuteIfMinHour={f.desdeMinuto}
                 maxHora="19"
                 maxMinuteIfMaxHour="30"
-                horarioLabel={horarioLabel}
+                horarioLabel="08:00 a 20:00 hs (Lun–Vie) / 09:00 a 13:00 hs (Sábado)"
                 disabled={f.confirmada}
               />
 
@@ -332,8 +336,8 @@ function RenderFranja({
                     setFranjas(ns);
                   }}
                   className={`p-1 rounded ${canConfirm
-                      ? "text-green-600 hover:bg-green-50"
-                      : "text-gray-400 cursor-not-allowed"
+                    ? "text-green-600 hover:bg-green-50"
+                    : "text-gray-400 cursor-not-allowed"
                     }`}
                 >
                   <Check className="w-4 h-4" />
@@ -359,7 +363,9 @@ function RenderFranja({
               {(!f.confirmada || i > 0) && franjas.length > 1 && (
                 <button
                   title="Eliminar"
-                  onClick={() => setFranjas(franjas.filter((_, idx) => idx !== i))}
+                  onClick={() =>
+                    setFranjas(franjas.filter((_, idx) => idx !== i))
+                  }
                   className="p-1 rounded text-red-500 hover:bg-red-50"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -388,8 +394,8 @@ function RenderFranja({
             ])
           }
           className={`mt-2 text-sm ${!lastIsConfirmed
-              ? "text-gray-400 cursor-not-allowed"
-              : "text-wash-primary hover:underline"
+            ? "text-gray-400 cursor-not-allowed"
+            : "text-wash-primary hover:underline"
             }`}
         >
           + Agregar franja horaria
@@ -432,11 +438,11 @@ export default function HorariosRetiro({
   const feriado = isHoliday(fechaSel);
 
   const businessMinHora = sabado ? "09" : "08";
-  const businessMaxHora = sabado ? "12" : "18";
+  const businessMaxHora = sabado ? "13" : "19";
   const businessMaxMinuteAtMaxHour = sabado ? "00" : "30";
   const horarioLabel = sabado
     ? "09:00 a 13:00 hs (Sábado)"
-    : "08:00 a 20:00 hs (Lun–Vie)";
+    : "08:00 a 20:00 hs (Lun–Vie) — Último retiro: 18:30 a 19:30 hs";
 
   React.useEffect(() => {
     const todas = franjas.length > 0 && franjas.every((f) => f.confirmada);
