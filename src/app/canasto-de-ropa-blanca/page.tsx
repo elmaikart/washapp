@@ -130,17 +130,12 @@ export default function CanastoDeRopaBlancaPage() {
           ))}
         </div>
 
-        {/* FORMULARIO DE PEDIDO */}
         <FormularioPedido
           serviciosSeleccionados={servicios}
           fechaRetiro={fechaRetiro}
           setFechaRetiro={setFechaRetiro}
           fechaDevolucion={fechaDevolucion}
           setFechaDevolucion={setFechaDevolucion}
-          horaInicioDevolucion={horaInicioDevolucion}
-          setHoraInicioDevolucion={setHoraInicioDevolucion}
-          horaFinDevolucion={horaFinDevolucion}
-          setHoraFinDevolucion={setHoraFinDevolucion}
           direccionRetiro={direccionRetiro}
           setDireccionRetiro={setDireccionRetiro}
           direccionDevolucion={direccionDevolucion}
