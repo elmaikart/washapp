@@ -135,10 +135,6 @@ export default function CanastoDeRopaBlancaPage() {
           serviciosSeleccionados={servicios}
           fechaRetiro={fechaRetiro}
           setFechaRetiro={setFechaRetiro}
-          horaInicioRetiro={horaInicioRetiro}
-          setHoraInicioRetiro={setHoraInicioRetiro}
-          horaFinRetiro={horaFinRetiro}
-          setHoraFinRetiro={setHoraFinRetiro}
           fechaDevolucion={fechaDevolucion}
           setFechaDevolucion={setFechaDevolucion}
           horaInicioDevolucion={horaInicioDevolucion}
