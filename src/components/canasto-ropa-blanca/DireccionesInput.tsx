@@ -3,53 +3,39 @@
 import React from "react";
 import { MapPin } from "lucide-react";
 
-interface Props {
-  direccionRetiro: string;
-  direccionDevolucion: string;
-  setDireccionRetiro: (direccion: string) => void;
-  setDireccionDevolucion: (direccion: string) => void;
+interface DireccionesInputProps {
+  tipo: "retiro" | "devolucion";
+  label: string;
+  value: string;
+  onChange: (direccion: string) => void;
 }
 
-const DireccionesInput: React.FC<Props> = ({
-  direccionRetiro,
-  direccionDevolucion,
-  setDireccionRetiro,
-  setDireccionDevolucion,
+const DireccionesInput: React.FC<DireccionesInputProps> = ({
+  tipo,
+  label,
+  value,
+  onChange,
 }) => {
   return (
-    <div className="bg-white rounded-xl shadow p-4 mt-4 space-y-4">
-      <h3 className="font-semibold text-wash-primary text-base flex items-center gap-2">
-        <MapPin className="w-5 h-5 text-wash-primary" />
-        Direcciones
-      </h3>
+    <div className="mb-3">
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        <span className="flex items-center gap-1">
+          <MapPin className="w-4 h-4 text-wash-primary" />
+          {label}
+        </span>
+      </label>
 
-      {/* Dirección de Retiro */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Dirección de Retiro
-        </label>
-        <input
-          type="text"
-          value={direccionRetiro}
-          onChange={(e) => setDireccionRetiro(e.target.value)}
-          placeholder="Ej: Av. Patria 1234"
-          className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-wash-primary outline-none text-sm"
-        />
-      </div>
-
-      {/* Dirección de Devolución */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Dirección de Devolución
-        </label>
-        <input
-          type="text"
-          value={direccionDevolucion}
-          onChange={(e) => setDireccionDevolucion(e.target.value)}
-          placeholder="Ej: Misma u otra dirección"
-          className="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-wash-primary outline-none text-sm"
-        />
-      </div>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={
+          tipo === "retiro"
+            ? "Ej: Av. Patria 1234 (para retiro)"
+            : "Ej: Misma u otra dirección (para devolución)"
+        }
+        className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-wash-primary outline-none"
+      />
     </div>
   );
 };
