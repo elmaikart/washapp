@@ -553,9 +553,14 @@ export default function HorariosDevolucion({
     // 🗓️ Texto legible: ej. "Jueves, 30 de octubre"
     const opciones = { weekday: "long", day: "numeric", month: "long" };
     const fechaTexto = fechaFinal
+    const opciones: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    };
+    const fechaTexto = fechaFinal
       .toLocaleDateString("es-AR", opciones)
       .replace(/^./, (c) => c.toUpperCase());
-
     // ⏰ Hora formateada
     const hh = String(fechaFinal.getHours()).padStart(2, "0");
     const mmTxt = String(fechaFinal.getMinutes()).padStart(2, "0");
@@ -568,7 +573,7 @@ export default function HorariosDevolucion({
     // 🪶 Debug opcional
     console.log("🧩 Fecha final de devolución:", fechaFinal.toISOString());
   }, [minDevolucion, setFechaDevolucion]);
-  
+
   return (
     <section className="mb-6 bg-white rounded-xl p-4 shadow-sm">
       <h3 className="text-lg font-semibold text-wash-primary mb-3">Devolución Programada</h3>
