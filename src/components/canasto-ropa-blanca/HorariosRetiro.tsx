@@ -143,7 +143,7 @@ function TimeBlock({
             return (
               <button
                 key={h}
-                disabled={fueraRango}
+                disabled={!!fueraRango}
                 title={
                   fueraRango
                     ? `Fuera del horario permitido (${horarioLabel})`
@@ -190,7 +190,7 @@ function TimeBlock({
             return (
               <button
                 key={m}
-                disabled={fueraRango}
+                disabled={!!fueraRango}
                 title={
                   fueraRango
                     ? `Fuera del horario permitido (${horarioLabel})`
