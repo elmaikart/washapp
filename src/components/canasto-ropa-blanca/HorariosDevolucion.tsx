@@ -543,108 +543,107 @@ export default function HorariosDevolucion({
       fechaFinal.setHours(8, 0, 0, 0); // inicia el próximo día a las 08:00 hs
     }
 
-    // 📅 Formatea fecha para setFechaDevolucion (yyyy-mm-dd)
-    const yyyy = fechaFinal.getFullYear();
-    const mm = String(fechaFinal.getMonth() + 1).padStart(2, "0");
-    const dd = String(fechaFinal.getDate()).padStart(2, "0");
-    const nuevaFecha = `${yyyy}-${mm}-${dd}`;
-    setFechaDevolucion(nuevaFecha);
+    useEffect(() => {
+      // 🗓️ Texto legible: ej. "jueves, 30 de octubre"
+      const opciones: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      };
 
-    // 🗓️ Texto legible: ej. "jueves, 30 de octubre"
+      const fechaTexto = fechaFinal
+        .toLocaleDateString("es-AR", opciones)
+        .replace(/^./, (c) => c.toUpperCase());
 
-    const fechaTexto = fechaFinal
-      .toLocaleDateString("es-AR", opciones)
-      .replace(/^./, (c) => c.toUpperCase());
+      // 🕒 Hora formateada
+      const hh = String(fechaFinal.getHours()).padStart(2, "0");
+      const mmTxt = String(fechaFinal.getMinutes()).padStart(2, "0");
 
-    // 🕒 Hora formateada
-    const hh = String(fechaFinal.getHours()).padStart(2, "0");
-    const mmTxt = String(fechaFinal.getMinutes()).padStart(2, "0");
+      // 💬 Mensaje dinámico (informativo)
+      setMensajeInfo(
+        `⏱ La devolución estará disponible a partir de las ${hh}:${mmTxt} hs del ${fechaTexto}.`
+      );
 
-    // 💬 Mensaje dinámico (informativo)
-    setMensajeInfo(
-      `⏱ La devolución estará disponible a partir de las ${hh}:${mmTxt} hs del ${fechaTexto}.`
+      console.log("✅ Fecha final de devolución:", fechaFinal.toISOString());
+    }, [minDevolucion, setFechaDevolucion]);
+
+
+    return (
+      <section className="mb-6 bg-white rounded-xl p-4 shadow-sm">
+        <h3 className="text-lg font-semibold text-wash-primary mb-3">Devolución Programada</h3>
+
+        {feriado && (
+          <div className="mb-3 flex items-center gap-2 text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 text-sm">
+            <AlertTriangle className="w-4 h-4" />
+            El día seleccionado es feriado. No se realizan devoluciones.
+          </div>
+        )}
+
+        {isSaturday(fechaSel) && (
+          <div className="mb-3 flex items-center gap-2 text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 text-sm">
+            <AlertTriangle className="w-4 h-4" />
+            Las devoluciones del sábado se realizan hasta las 13:00 hs.
+          </div>
+        )}
+
+        {/* Fecha */}
+        <div className="flex items-center mb-2">
+          <Calendar className="w-5 h-5 text-wash-primary mr-2" />
+          <input
+            type="date"
+            value={fechaSel}
+            onChange={(e) => setFechaDevolucion(e.target.value)}
+            min={minAvail?.date || minDevolucion?.date}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full"
+          />
+        </div>
+
+        {/* Línea informativa sutil */}
+        {minAvail && (
+          <p className="text-xs text-gray-500 italic mb-3">
+            🕐 La devolución estará disponible a partir de las{" "}
+            <span className="font-semibold text-wash-primary">
+              {minAvail.hh}:{minAvail.mm} hs
+            </span>{" "}
+            del{" "}
+            {new Date(minAvail.date).toLocaleDateString("es-AR", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+            })}
+            .
+          </p>
+        )}
+
+        {/* Render de franjas horarias */}
+        <div className={feriado ? "pointer-events-none opacity-60" : ""}>
+          <RenderFranja
+            franjas={franjas}
+            setFranjas={setFranjas}
+            fechaInicial={fechaInicial}
+            businessMinHoraInicio={businessMinHoraInicio}
+            businessMinMinuteInicio={businessMinMinuteInicio}
+            businessMaxHoraInicio={businessMaxHoraInicio}
+            horarioLabel={horarioLabel}
+            maxFinHora={maxFinHora}
+            maxFinMinute={maxFinMinute}
+            minDevolucion={minAvail || null}
+            currentDate={fechaSel}
+          />
+        </div>
+
+        {/* Dirección */}
+        <div className="mt-4">
+          <DireccionesInput
+            tipo="devolucion"
+            label="Dirección de Devolución"
+            value={direccionDevolucion}
+            onChange={setDireccionDevolucion}
+          />
+        </div>
+
+        {/* Mensaje sutil adicional si lo querés mantener */}
+        {mensajeInfo && <div className="sr-only">{mensajeInfo}</div>}
+      </section>
     );
-
-    // 🪶 Debug opcional
-    console.log("🧩 Fecha final de devolución:", fechaFinal.toISOString());
-  }, [minDevolucion, setFechaDevolucion]);
-
-  return (
-    <section className="mb-6 bg-white rounded-xl p-4 shadow-sm">
-      <h3 className="text-lg font-semibold text-wash-primary mb-3">Devolución Programada</h3>
-
-      {feriado && (
-        <div className="mb-3 flex items-center gap-2 text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 text-sm">
-          <AlertTriangle className="w-4 h-4" />
-          El día seleccionado es feriado. No se realizan devoluciones.
-        </div>
-      )}
-
-      {isSaturday(fechaSel) && (
-        <div className="mb-3 flex items-center gap-2 text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2 text-sm">
-          <AlertTriangle className="w-4 h-4" />
-          Las devoluciones del sábado se realizan hasta las 13:00 hs.
-        </div>
-      )}
-
-      {/* Fecha */}
-      <div className="flex items-center mb-2">
-        <Calendar className="w-5 h-5 text-wash-primary mr-2" />
-        <input
-          type="date"
-          value={fechaSel}
-          onChange={(e) => setFechaDevolucion(e.target.value)}
-          min={minAvail?.date || minDevolucion?.date}
-          className="border border-gray-300 rounded-md px-3 py-2 w-full"
-        />
-      </div>
-
-      {/* Línea informativa sutil */}
-      {minAvail && (
-        <p className="text-xs text-gray-500 italic mb-3">
-          🕐 La devolución estará disponible a partir de las{" "}
-          <span className="font-semibold text-wash-primary">
-            {minAvail.hh}:{minAvail.mm} hs
-          </span>{" "}
-          del{" "}
-          {new Date(minAvail.date).toLocaleDateString("es-AR", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-          })}
-          .
-        </p>
-      )}
-
-      {/* Render de franjas horarias */}
-      <div className={feriado ? "pointer-events-none opacity-60" : ""}>
-        <RenderFranja
-          franjas={franjas}
-          setFranjas={setFranjas}
-          fechaInicial={fechaInicial}
-          businessMinHoraInicio={businessMinHoraInicio}
-          businessMinMinuteInicio={businessMinMinuteInicio}
-          businessMaxHoraInicio={businessMaxHoraInicio}
-          horarioLabel={horarioLabel}
-          maxFinHora={maxFinHora}
-          maxFinMinute={maxFinMinute}
-          minDevolucion={minAvail || null}
-          currentDate={fechaSel}
-        />
-      </div>
-
-      {/* Dirección */}
-      <div className="mt-4">
-        <DireccionesInput
-          tipo="devolucion"
-          label="Dirección de Devolución"
-          value={direccionDevolucion}
-          onChange={setDireccionDevolucion}
-        />
-      </div>
-
-      {/* Mensaje sutil adicional si lo querés mantener */}
-      {mensajeInfo && <div className="sr-only">{mensajeInfo}</div>}
-    </section>
-  );
-}
+  }
