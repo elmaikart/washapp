@@ -550,20 +550,7 @@ export default function HorariosDevolucion({
     const nuevaFecha = `${yyyy}-${mm}-${dd}`;
     setFechaDevolucion(nuevaFecha);
 
-    // 🗓️ Texto legible: ej. "Jueves, 30 de octubre"
-    const opciones: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-    };
-
-    // ⏰ Hora formateada
     // 🗓️ Texto legible: ej. "jueves, 30 de octubre"
-    const opciones: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-    };
 
     const fechaTexto = fechaFinal
       .toLocaleDateString("es-AR", opciones)
