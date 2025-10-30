@@ -558,6 +558,18 @@ export default function HorariosDevolucion({
     };
 
     // ⏰ Hora formateada
+    // 🗓️ Texto legible: ej. "jueves, 30 de octubre"
+    const opciones: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    };
+
+    const fechaTexto = fechaFinal
+      .toLocaleDateString("es-AR", opciones)
+      .replace(/^./, (c) => c.toUpperCase());
+
+    // 🕒 Hora formateada
     const hh = String(fechaFinal.getHours()).padStart(2, "0");
     const mmTxt = String(fechaFinal.getMinutes()).padStart(2, "0");
 
