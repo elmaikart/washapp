@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { MapPin } from "lucide-react";
-import ModalUbicacion from "./ModalUbicacion";
+import ModalUbicacion from "./common/ModalUbicacion";
 
 interface DireccionesInputProps {
   label: string;

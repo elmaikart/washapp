@@ -2,18 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===========================
+   🌈 ESTILOS GLOBALES WASHAPP
+   =========================== */
+
 body {
-  @apply bg-wash-bg text-black font-sans antialiased;
+  @apply bg-wash-bg text-gray-800 font-sans antialiased;
   font-size: 16px;
   line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-/* 🔹 Ajuste de espacio por header fijo */
+/* 🔹 Ajuste para pantallas con header fijo */
 .with-header {
-  padding-top: 64px; /* Altura aproximada de un header fijo */
+  padding-top: 64px;
+  /* Altura del header */
 }
 
-/* 🔹 Inputs type="time": ajustes cross-browser */
+/* ===========================
+   🕒 Inputs de hora
+   =========================== */
+
 input[type="time"] {
   position: relative;
   text-align: center;
@@ -30,9 +41,9 @@ input[type="time"]::-webkit-clear-button {
   appearance: none;
 }
 
-/* ================================ */
-/*        ESTILOS PARA SELECTS      */
-/* ================================ */
+/* ===========================
+   🔽 Selects personalizados
+   =========================== */
 
 select {
   -webkit-appearance: none;
@@ -41,7 +52,7 @@ select {
   background: transparent;
   border: none;
   outline: none;
-  color: white;
+  color: #0a2a45;
   text-align: center;
   cursor: pointer;
   padding: 4px 8px;
@@ -50,8 +61,8 @@ select {
 }
 
 select option {
-  background-color: #003366;
-  color: white;
+  background-color: #fff9ed;
+  color: #0a2a45;
   padding: 8px;
 }
 
@@ -63,10 +74,181 @@ select {
 select::-webkit-scrollbar {
   width: 6px;
 }
+
 select::-webkit-scrollbar-thumb {
-  background: #0055aa;
+  background: #3e95d6;
   border-radius: 10px;
 }
+
 select::-webkit-scrollbar-track {
-  background: #002244;
+  background: #f0f0f0;
+}
+
+/* ===========================
+   📜 Scrollbar general oculto
+   =========================== */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ===========================
+   📱 Layouts sin bordes ni curvas
+   =========================== */
+
+html,
+body,
+#__next,
+main,
+header,
+footer {
+  border-radius: 0 !important;
+  box-shadow: none;
+  background-color: #fff9ed;
+  /* Fondo crema WashApp */
+}
+
+/* ===========================
+   ✨ Tarjetas y componentes
+   =========================== */
+
+.card {
+  @apply bg-white shadow-card rounded-2xl p-4;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+/* ===========================
+   💙 Detalles visuales globales
+   =========================== */
+
+a {
+  color: #3e95d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ===========================
+   🎠 Scroll horizontal moderno (ServiciosScroll)
+   =========================== */
+
+/* Scrollbar visible en desktop */
+.scrollbar-visible::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background: #3e95d6;
+  /* Azul WashApp */
+  border-radius: 10px;
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb:hover {
+  background: #2d7ac0;
+  /* Azul más oscuro */
+}
+
+.scrollbar-visible::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Contenedor scrollable */
+#servicios-scroll {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding: 0 1rem;
+  padding-bottom: 1.2rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  /* permite expandirse hacia arriba */
+  height: auto;
+  min-height: 130px;
+  /* 📏 más aire para evitar mordidas */
+}
+
+/* Las cards encajan completas y centradas */
+#servicios-scroll>* {
+  scroll-snap-align: start;
+  margin-top: 0.5rem;
+  /* 🧘‍♂️ espacio extra arriba */
+}
+
+/* Animación suave de hover/activo */
+#servicios-scroll button {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transform-origin: center bottom;
+}
+
+#servicios-scroll button:hover {
+  transform: scale(1.04);
+}
+
+/* Efecto activo: brilla y sube levemente */
+#servicios-scroll button.active {
+  box-shadow: 0 0 8px rgba(62, 149, 214, 0.4);
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* ===========================
+   🌤 Separación visual header - contenido
+   =========================== */
+
+.page-inicio {
+  padding-top: 1.25rem;
+  /* 20px */
+}
+
+/* ===========================
+   🧭 Layout responsivo general
+   =========================== */
+
+main.page-inicio {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 90%;
+  background-color: #fff9ed;
+  /* Fondo crema WashApp */
+  padding-bottom: 7rem;
+  /* deja espacio para el footer */
+  min-height: 100vh;
+  /* siempre ocupa pantalla completa */
+}
+
+@media (max-width: 768px) {
+  main.page-inicio {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  main.page-inicio {
+    max-width: 80%;
+  }
+}
+
+@media (min-width: 1280px) {
+  main.page-inicio {
+    max-width: 1000px;
+  }
 }

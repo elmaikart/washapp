@@ -1,11 +1,13 @@
 // tailwind.config.ts
 import type { Config } from "tailwindcss";
+import scrollbarHide from "tailwind-scrollbar-hide";
+import forms from "@tailwindcss/forms";
 
 const config: Config = {
   content: [
     "./src/**/*.{ts,tsx,js,jsx}",
     "./components/**/*.{ts,tsx,js,jsx}",
-    "./app/**/*.{ts,tsx,js,jsx}"
+    "./app/**/*.{ts,tsx,js,jsx}",
   ],
   theme: {
     container: {
@@ -16,13 +18,13 @@ const config: Config = {
     extend: {
       colors: {
         wash: {
-          bg: "#FFF9ED",          // Fondo crema original de washapp1
-          primary: "#3E95D6",     // Azul celeste corporativo
-          accent: "#FFD84D",      // Amarillo para promociones o botones
-          bannerDark: "#0A2A45",  // Azul profundo para headers oscuros
-          bannerLight: "#FFD100", // Amarillo brillante alternativo
-          success: "#4CAF50",     // Verde confirmación
-          error: "#F44336",       // Rojo error o alertas
+          bg: "#FFF9ED", // Fondo crema original
+          primary: "#3E95D6", // Azul corporativo
+          accent: "#FFD84D", // Amarillo para promociones
+          bannerDark: "#0A2A45", // Azul profundo
+          bannerLight: "#FFD100", // Amarillo brillante
+          success: "#4CAF50", // Verde confirmación
+          error: "#F44336", // Rojo error o alertas
         },
       },
       boxShadow: {
@@ -37,9 +39,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms"), // mejora inputs, selects y textareas
-  ],
+  plugins: [forms, scrollbarHide],
 };
 
 export default config;

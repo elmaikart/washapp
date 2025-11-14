@@ -33,6 +33,8 @@ export default function CanastoDeRopaBlancaPage() {
     },
   ]);
 
+  const hayServiciosSeleccionados = servicios.some((s) => s.cantidad > 0);
+
   /* ===================== FUNCIONES ===================== */
   const aumentarCantidad = (nombre: string) => {
     setServicios((prev) =>
@@ -147,6 +149,7 @@ export default function CanastoDeRopaBlancaPage() {
           seguro={seguro}
           setSeguro={setSeguro}
           onConfirmar={handleConfirmarPedido}
+          hayServiciosSeleccionados={hayServiciosSeleccionados}
         />
       </div>
     </main>
